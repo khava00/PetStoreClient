@@ -1,0 +1,71 @@
+{
+  "name": "pet-store-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/register": "^7.18.9",
+    "@nextui-org/react": "^1.0.0-beta.9",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "0.24.0",
+    "babel-loader": "^8.2.5",
+    "core-js": "^3.24.1",
+    "crpyto-js": "^0.0.1-security",
+    "crypto-js": "^4.1.1",
+    "exppress": "^0.0.1-security",
+    "express": "4.17.1",
+    "http-proxy-middleware": "^2.0.6",
+    "ignore-styles": "^5.0.1",
+    "moment": "^2.29.3",
+    "nodemon": "^2.0.19",
+    "react": "^18.1.0",
+    "react-autocomplete": "^1.8.1",
+    "react-dom": "^18.1.0",
+    "react-ga": "^3.3.1",
+    "react-helmet": "^6.1.0",
+    "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.4.0",
+    "react-mailchimp-subscribe": "^2.1.3",
+    "react-messenger-customer-chat": "^0.8.0",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.0.0",
+    "react-router-sitemap": "^1.2.0",
+    "react-scripts": "5.0.1",
+    "react-share": "^4.4.0",
+    "react-slick": "^0.29.0",
+    "redux": "4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
+    "regenerator-runtime": "^0.13.9",
+    "slick-carousel": "^1.8.1",
+    "web-vitals": "^2.1.4",
+    "webpack": "4",
+    "webpack-cli": "3",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "ssr": "node server/index.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.10"
+  }
+}

@@ -1,0 +1,137 @@
+.title-checkout {
+  color: #e94560;
+  text-align: center;
+}
+
+.box-checkout-form {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 -16px;
+  padding: 0px 5% 5%;
+}
+
+.box-checkout-form .title {
+  margin: 4% 5%;
+  width: 100%;
+}
+
+.box-checkout-form .checkout-checkbox {
+  margin: -10px 0px 30px 5%; 
+}
+
+.col-25 {
+  -ms-flex: 25%;
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%;
+  flex: 50%;
+}
+
+.box-main-checkout {
+  -ms-flex: 75%;
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.box-main-checkout {
+  padding: 0 16px;
+}
+
+.container-checkout {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+.col-50 .input-checkout-form {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.box-checkout-element label {
+  margin-bottom: -15px;
+}
+
+.checkout-element-row {
+  margin-bottom: 20px;
+}
+
+.col-50 label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.col-50 .icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn-checkout-form {
+  background-color: #04aa6d;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.col-50 .btn-checkout-form :hover {
+  background-color: #45a049;
+}
+
+.col-50 a {
+  color: #2196f3;
+}
+
+.col-50 hr {
+  border: 1px solid lightgrey;
+}
+
+.col-25 .price {
+  float: right;
+}
+.header-price {
+  margin-bottom: 10px;
+  float: right;
+}
+.address-autocomplete{
+  max-width: 400px;
+  margin-top: 10px;
+}
+.address-autocomplete input:focus, .address-autocomplete input:hover{
+  outline: 1px solid #0072f5;
+
+}
+
+.address-autocomplete input {
+  height:  40px;
+  border-radius: 15px;
+  width: 100%
+
+  
+}
+.address-autocomplete div{
+display: block !important;
+}
+
+@media (max-width: 800px) {
+  .box-checkout-form {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,13 @@
+.product-list .product img {
+  width: 100%;
+  height: 250px;
+}
+.product-list .product {
+  transition: 0.5s;
+}
+.product-list.product:hover {
+  box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+}
+.name-product{
+  cursor: pointer;
+}
