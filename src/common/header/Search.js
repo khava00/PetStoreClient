@@ -102,11 +102,9 @@ const Search = () => {
   }, [userReg]);
 
   const loginHandler = (e) => {
-    e.preventDefault();
     dispatch(login(username, password));
   };
   const registerHandler = (e) => {
-    e.preventDefault();
     dispatch(register(email, username, password));
   };
   const logoutHander = () => {
@@ -287,7 +285,7 @@ const Search = () => {
                 <Button auto flat color="error" onClick={closeHandler}>
                   Đóng
                 </Button>
-                <Button auto onClick={loginHandler}>
+                <Button auto onClick={(e)=>loginHandler(e)}>
                   Đăng nhập
                 </Button>
               </Modal.Footer>
@@ -382,7 +380,7 @@ const Search = () => {
                 <Button auto flat color="error" onClick={closeHandler2}>
                   Đóng
                 </Button>
-                <Button auto onClick={registerHandler}>
+                <Button auto onClick={(e)=>registerHandler(e)}>
                   Đăng ký
                 </Button>
               </Modal.Footer>

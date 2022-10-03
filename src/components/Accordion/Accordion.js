@@ -13,6 +13,7 @@ const Accordion = ({ category }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState([]);
+  console.log(content)
   useEffect(() => {
     dispatch(listBreed(category.id, setContent));
   }, []);
@@ -37,6 +38,7 @@ const Accordion = ({ category }) => {
               <MdExpandLess className="accordion-icon" />
             )}
           </span>
+          
         )}
       </div>
       {isActive &&

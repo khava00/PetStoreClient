@@ -2,7 +2,7 @@ import { axiosClient } from "../../services/api";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM,DECREASE_QUANTITY,GET_NUMBER_CART, INCREASE_QUANTITY } from "../Constants/CartContants";
 import toast from 'react-hot-toast';
 export const addToCart = (id, qty) => async(dispatch, getState) => {
-    const res = await axiosClient.get(`/product/detail?id=${id}`)
+    const res = await axiosClient.get(`/product/${id}`)
         dispatch({
             type: CART_ADD_ITEM,
             payload: {
@@ -10,7 +10,7 @@ export const addToCart = (id, qty) => async(dispatch, getState) => {
                 name: res.data.data.name,
                 price: res.data.data.price,
                 imagePath:res.data.data.imagePath[0] ,
-                amount: res.data.data.amount,
+                amountInStock: res.data.data.amountInStock,
                 qty,
             },
         });   

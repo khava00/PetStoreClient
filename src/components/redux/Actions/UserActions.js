@@ -14,7 +14,8 @@ export const login = (username,password) => async(dispatch) =>{
         
     } catch (error) {
         
-        toast.error(error.response.data.errorMessage);
+        // toast.error(error.response.data.errorMessage);
+        console.log(error);
         dispatch({
             type:USER_LOGIN_FAIL,
             payload: error.response && error.response.data.errorMessage ? error.response.data.errorMessage : error.message
@@ -27,7 +28,8 @@ export const getUserDetails = (id) => async(dispatch) =>{
     try {
         dispatch({type:USER_DETAIL_REQUEST})
 
-        const res = await axiosClient.get(`/user/profiles?id=${id}`)
+        const res = await axiosClient.get(`/user/profiles?userId=${id}`)
+
         dispatch({type: USER_DETAIL_SUCCESS, payload: res.data.data})
        
     } catch (error) {
@@ -87,7 +89,7 @@ export const updateProfileImage = (imageFile) => async(dispatch) =>{
         toast.success("Thay đổi ảnh thành công.");
 
         const user = JSON.parse(localStorage.getItem("user"));
-        dispatch(getUserDetails(+user.userId))
+        dispatch(getUserDetails(user.id))
         user.avatarImg = res.data.data;
         localStorage.setItem("user",JSON.stringify(user))
 
@@ -117,7 +119,7 @@ export const updateProfileUser = (userInfo, data) => async(dispatch) =>{
         toast.success("Chỉnh sửa thông tin thành công.");
 
         const user = JSON.parse(localStorage.getItem("user"));
-        dispatch(getUserDetails(+user.userId))
+        dispatch(getUserDetails(user.id))
         localStorage.setItem("user",JSON.stringify(user))
 
     } catch (error) {

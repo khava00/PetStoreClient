@@ -54,34 +54,17 @@ const array = [
     2
 ]
 
-export const listProduct = (type, breedId, categoryId, pageNumber, pageSize) => async(dispatch) =>{
+export const listProduct = (type, pageNumber, pageSize) => async(dispatch) =>{
     try {
-        dispatch({type: (breedId !== 0 || (breedId === 0 && !array.includes(categoryId)))
-                        ? PRODUCT_LIST_RELATED_REQUEST
-                        : categoryId === 1 
-                        ? PRODUCT_LIST_NEW_REQUEST 
-                        : categoryId === 2 
-                        ? PRODUCT_LIST_HOT_REQUEST 
-                        : PRODUCT_LIST_REQUEST})
+        dispatch({type: (type==="cat")?PRODUCT_LIST_NEW_REQUEST:(type==="dog")?PRODUCT_LIST_HOT_REQUEST:PRODUCT_LIST_REQUEST})
 
-        const res = await axiosClient.get(`/product/list?type=${type}&breed-id=${breedId}&category-id=${categoryId}&page-number=${pageNumber}&page-size=${pageSize}`)
-        // console.log(res.data.data.content)
-        dispatch({type:  (breedId !== 0 || (breedId === 0 && !array.includes(categoryId)))
-                        ? PRODUCT_LIST_RELATED_SUCCESS
-                        : categoryId === 1 
-                        ? PRODUCT_LIST_NEW_SUCCESS 
-                        : categoryId === 2 
-                        ? PRODUCT_LIST_HOT_SUCCESS 
-                        : PRODUCT_LIST_SUCCESS, payload: res.data.data.content })
+        const res = await axiosClient.get(`/product/${type}/list?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        
+        dispatch({type: (type==="cat")?PRODUCT_LIST_NEW_SUCCESS:(type==="dog")?PRODUCT_LIST_HOT_SUCCESS:PRODUCT_LIST_SUCCESS, payload: res.data.data.content })
     } catch (error) {
+        console.log(error)
         dispatch({
-            type:  (breedId !== 0 || (breedId === 0 && !array.includes(categoryId)))
-                    ? PRODUCT_LIST_RELATED_FAIL
-                    : categoryId === 1 
-                    ? PRODUCT_LIST_NEW_FAIL 
-                    : categoryId === 2 
-                    ? PRODUCT_LIST_HOT_FAIL 
-                    : PRODUCT_LIST_FAIL,
+            type:   PRODUCT_LIST_FAIL,
             payload: error.errorMessage
         })
     }
@@ -118,13 +101,15 @@ export const convertURL= (str)=>{
 
 //details product
 export const listProductDetails = (id) => async(dispatch) =>{
+    console.log(id)
     try {
         dispatch({type: PRODUCT_DETAILS_REQUEST})
 
-        const res = await axiosClient.get(`/product/detail?id=${id}`)
+        const res = await axiosClient.get(`/product/${id}`)
       
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: res.data.data})
     } catch (error) {
+        console.log(error)
         dispatch({
             type:PRODUCT_DETAILS_FAIL,
             payload: error.response && error.response.message ? error.response.data.message : error.message
@@ -137,7 +122,7 @@ export const listProductSuggest = (text, pageNumber, pageSize) => async(dispatch
     try {
         dispatch({ type: PRODUCT_LIST_SUGGESTION_REQUEST })
 
-        const res = await axiosClient.get(`/product/search-text?text=${text}&page-number=${pageNumber}&page-size=${pageSize}`)
+        const res = await axiosClient.get(`/product/search/${text}?pageNumber=${pageNumber}&pageSize=${pageSize}`)
 
         dispatch({ type: PRODUCT_LIST_SUGGESTION_SUCCESS, payload: res.data.data})
 
@@ -171,7 +156,7 @@ export const listBreed = (categoryId, setContent) => async(dispatch) =>{
     try {
         dispatch({ type: PRODUCT_BREED_REQUEST })
 
-        const res = await axiosClient.get(`/common/list/breed?category-id=${categoryId}`);
+        const res = await axiosClient.get(`/common/list/breed?categoryId=${categoryId}`);
 
         setContent(res.data.data);
 
@@ -185,11 +170,11 @@ export const listBreed = (categoryId, setContent) => async(dispatch) =>{
     }
 }
 
-export const listProductPage = (type, breedId, categoryId, pageNumber, pageSize) => async(dispatch) =>{
+export const listProductPage = (breedId, categoryId, pageNumber, pageSize) => async(dispatch) =>{
     try {
         dispatch({type: PRODUCT_LIST_PAGE_REQUEST})
 
-        const res = await axiosClient.get(`/product/list?type=${type}&breed-id=${breedId}&category-id=${categoryId}&page-number=${pageNumber}&page-size=${pageSize}`)
+        const res = await axiosClient.get(`/product/${categoryId}/${breedId}/list?pageNumber=${pageNumber}&pageSize=${pageSize}`)
         
         dispatch({type: PRODUCT_LIST_PAGE_SUCCESS,  payload: res.data.data })
 

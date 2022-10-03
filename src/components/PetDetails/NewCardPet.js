@@ -45,28 +45,28 @@ const SampleNextArrow = (props) => {
     const productDetails = useSelector((state)=> state.productDetails)
     const productsRelated = useSelector((state)=> state.productListRelated)
     const { loading, product } = productDetails;
-    useEffect(()=>{
-      if (loading === false)
-        if (product.breed === null) 
-          dispatch(listProduct("related", 0, product.category.id,0,8))
-        else
-          dispatch(listProduct("related", product.breed.id,0,0,8))
+    // useEffect(()=>{
+    //   if (loading === false)
+    //     if (product.breed === null) 
+    //       dispatch(listProduct("related", 0, product.category.id,0,8))
+    //     else
+    //       dispatch(listProduct("related", product.breed.id,0,0,8))
           
-    },[id, dispatch, loading, product])
+    // },[id, dispatch, loading, product])
 
     useEffect(() => {
-      if (productsRelated.productsRelated !== undefined) {
+      if (product.productSuggestions !== undefined) {
         setSettings({
           dots: false,
           infinite: true,
           speed: 500,
-          slidesToShow: productsRelated.productsRelated.length < 4 ? productsRelated.productsRelated.length : 4,
+          slidesToShow: product.productSuggestions.length < 4 ? product.productSuggestions.length : 4,
           slidesToScroll: 1,
           nextArrow: <SampleNextArrow />,
           prevArrow: <SamplePrevArrow />,
         })
       }
-    }, [productsRelated])
+    }, [product])
     const covertURL= (str)=>{
       // Chuyển hết sang chữ thường
       str = str.toLowerCase();     
@@ -102,7 +102,7 @@ const SampleNextArrow = (props) => {
         ) : (
           <>
             <Slider {...settings}>
-              {productsRelated.productsRelated?.map((productItems) => {
+              { product.productSuggestions?.map((productItems) => {
                 return (
                   <div className='box'>
                     <div className='product mtop'>
@@ -111,7 +111,7 @@ const SampleNextArrow = (props) => {
                         <img className="img-related" src={`${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
                       </div>
                       <div className='product-details'>
-                        <Link to = {`/product/${covertURL(productItems.name)}-${productItems.id}`}><h3>{productItems.name}</h3></Link>
+                        <Link to = {`/product/${productItems.id}`}><h3>{productItems.name}</h3></Link>
                         <div className='rate'>
                           <i className='fa fa-star'></i>
                           <i className='fa fa-star'></i>
@@ -124,7 +124,7 @@ const SampleNextArrow = (props) => {
                           {/* step : 3  
                           if hami le button ma click garryo bahne 
                           */}
-                         {productItems.amount>0 ? 
+                         {productItems.amountInStock>0 ? 
                           (<>
                               <button onClick={()=>dispatch(addToCart(productItems.id,1))}>
                                 <i className='fa fa-plus'></i>

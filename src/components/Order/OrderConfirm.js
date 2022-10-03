@@ -5,7 +5,7 @@ import { OrderList } from './OrderList';
 const OrderConfirm = () => {
     
   const { loading, orderedList } = useSelector((state) => state.orderListProcessing);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {

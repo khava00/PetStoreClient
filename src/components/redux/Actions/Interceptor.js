@@ -51,6 +51,7 @@ const setup = (store) => {
           try {
             const rs = await axiosClient.post('/user/refresh-token', {
               refreshToken: TokenService.getLocalRefreshToken(),
+              accessToken: TokenService.getLocalAccessToken()
             });
             const { accessToken } = rs.data;
             dispatch(refreshToken(accessToken));

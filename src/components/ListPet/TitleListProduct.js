@@ -11,7 +11,7 @@ import toast from "react-hot-toast"
     const dispatch = useDispatch()
     const productList = useSelector((state)=> state.productList)
     useEffect(()=>{
-      dispatch(listProduct("product",0,0,0,8))
+      dispatch(listProduct("accessory",1,8))
     },[dispatch])
     const covertURL= (str)=>{
       // Chuyển hết sang chữ thường
@@ -53,7 +53,7 @@ import toast from "react-hot-toast"
                     
                   </div>
                   <div className='product-details'>
-                  <Link to = {`/product/${covertURL(productItems.name)}-${productItems.id}`}><h3>{productItems.name}</h3></Link>
+                  <Link to = {`/product/${productItems.id}`}><h3>{productItems.name}</h3></Link>
                   <div className='rate'>
                       {productItems.rate=== null ?<span className="rated">Chưa có đánh giá </span>: (<> {[...Array(productItems.rate)].map((star) => {        
                           return (         
@@ -67,7 +67,7 @@ import toast from "react-hot-toast"
                       {/* step : 3  
                        if hami le button ma click garryo bahne 
                       */}
-                     {productItems.amount>0 ? 
+                     {productItems.amountInStock>0 ? 
                       (<>
                           <button onClick={()=>dispatch(addToCart(productItems.id,1))}>
                             <i className='fa fa-plus'></i>

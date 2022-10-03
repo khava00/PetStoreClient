@@ -21,7 +21,7 @@ const UserDetailPage = () => {
   const {user} = userLogin;
   useEffect(() => {
     if(user){
-      dispatch(getUserDetails(user.userId))
+      dispatch(getUserDetails(user.id))
     } 
   },[dispatch, user])
 
@@ -66,7 +66,7 @@ const UserDetailPage = () => {
         >
           <UserChangePassword/>
         </div>
-        <div
+        {/* <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
           <Order/>
@@ -75,7 +75,7 @@ const UserDetailPage = () => {
           className={toggleState === 4 ? "content  active-content" : "content"}
         >
           <Wishlist/>
-        </div>
+        </div> */}
       </div>
     </div>
   );

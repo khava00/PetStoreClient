@@ -6,7 +6,7 @@ import { OrderList } from './OrderList';
 const OrderCancel= () => {
   
   const { loading, orderedList } = useSelector((state) => state.orderListCancel);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {

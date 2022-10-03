@@ -19,13 +19,13 @@ export const ProductPage = () => {
   const dispatch = useDispatch();
 
   const { categoryId, breedId, keyword } = useParams();
-  const [ pageNumber, setPageNumber ] = useState(0);
+  const [ pageNumber, setPageNumber ] = useState(1);
   
   useEffect(() => {
     if (keyword) dispatch(listProductSuggest(keyword, pageNumber, 8))
-    else if (breedId) dispatch(listProductPage("hot", breedId, categoryId, pageNumber, 8))
-    else if (categoryId) dispatch(listProductPage("hot", 0, categoryId, pageNumber, 8))
-    else  dispatch(listProductPage("hot", 0, 0, pageNumber, 8))
+    else if (breedId) dispatch(listProductPage(breedId, categoryId, pageNumber, 8))
+    else if (categoryId) dispatch(listProductPage(0, categoryId, pageNumber, 8))
+    else  dispatch(listProductPage(0, 0, pageNumber, 8))
   }, [dispatch, categoryId, breedId, pageNumber, keyword]);
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index) => {
@@ -63,8 +63,8 @@ export const ProductPage = () => {
           </div>
       </div>
       <div className="pagination">
-        {keyword&&searchList.products?.content.length===0?<></>:keyword?<Pagination shadow animated={false} total={searchList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e - 1)} initialPage={1} />:
-        <Pagination shadow animated={false} total={productList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e - 1)} initialPage={1} />}
+        {keyword&&searchList.products?.content.length===0?<></>:keyword?<Pagination shadow animated={false} total={searchList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />:
+        <Pagination shadow animated={false} total={productList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />}
       </div>
     </>
   );

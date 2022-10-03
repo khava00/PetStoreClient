@@ -8,7 +8,7 @@ const Wishlist = () => {
   const dispatch = useDispatch();
   const wishList = useSelector((state)=>state.wishList)
   const addWishList = useSelector((state)=>state.addWishList)
-  const [ pageNumber, setPageNumber ] = useState(0);
+  const [ pageNumber, setPageNumber ] = useState(1);
   const loading = addWishList;
   useEffect(()=>{
       dispatch(WishListProductPage(pageNumber,4))
@@ -27,7 +27,7 @@ const Wishlist = () => {
        <div className='pagination'>
        {wishList.products?.content===null? (
        <></>
-       ):<Pagination shadow animated={false} total={wishList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e - 1)} initialPage={1} />}
+       ):<Pagination shadow animated={false} total={wishList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />}
       </div>
     </div>
   )

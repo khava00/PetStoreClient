@@ -32,7 +32,7 @@ const CartPage = () => {
   }, [cartItems])
 
   const handleIncreaseQuantity = (qty, index) => {
-    if (cartItems[index].amount - qty > 0) {
+    if (cartItems[index].amountInStock - qty > 0) {
       dispatch(increaseQuantity(index))
     }
     else {

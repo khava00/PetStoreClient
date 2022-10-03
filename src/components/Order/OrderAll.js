@@ -4,7 +4,7 @@ import { getOrderListAll } from "../redux/Actions/PaymentAction";
 import { OrderList } from "./OrderList";
 const OrderAll = () => {
   const { loading, orderedList } = useSelector((state) => state.orderListAll);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {

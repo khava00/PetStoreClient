@@ -11,7 +11,7 @@ import toast from "react-hot-toast"
     const dispatch = useDispatch()
     const productListHot = useSelector((state)=> state.productListHot)
     useEffect(()=>{
-      dispatch(listProduct("hot",0,2,0,8))
+      dispatch(listProduct("dog",1,8))
     },[dispatch])
     const [isClick,setClick] = useState(false)
     const covertURL= (str)=>{
@@ -70,7 +70,7 @@ import toast from "react-hot-toast"
                       {/* step : 3  
                        if hami le button ma click garryo bahne 
                       */}
-                      {productItems.amount>0 ? 
+                      {productItems.amountInStockInStock>0 ? 
                       (<>
                           <button onClick={()=>dispatch(addToCart(productItems.id,1))}>
                             <i className='fa fa-plus'></i>

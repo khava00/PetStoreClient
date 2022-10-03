@@ -40,7 +40,7 @@ const SampleNextArrow = (props) => {
   const dispatch = useDispatch();
   const productListNew =useSelector((state)=> state.productListNew)
   useEffect(()=>{
-    dispatch(listProduct("new",0,1,0,8))
+    dispatch(listProduct("cat",1,8))
   },[dispatch])
   
   const covertURL= (str)=>{
@@ -85,7 +85,7 @@ const SampleNextArrow = (props) => {
                     </div>
                   </div>
                   <div className='product-details'>
-                  <Link  to = {`/product/${covertURL(productItems.name)}-${productItems.id}`}>
+                  <Link  to = {`/product/${productItems.id}`}>
                     <h3>{productItems.name}</h3>
                     </Link>
                     <div className='rate'>
@@ -101,7 +101,7 @@ const SampleNextArrow = (props) => {
                       {/* step : 3  
                        if hami le button ma click garryo bahne 
                       */}
-                      {productItems.amount>0 ? 
+                      {productItems.amountInStock>0 ? 
                       (<>
                           <button onClick={()=>dispatch(addToCart(productItems.id,1))}>
                             <i className='fa fa-plus'></i>

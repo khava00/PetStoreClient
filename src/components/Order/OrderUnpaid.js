@@ -9,7 +9,7 @@ import { OrderList } from './OrderList';
 const OrderUnpaid = () => {
     
   const { loading, orderedList } = useSelector((state) => state.orderListUnpaid);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {

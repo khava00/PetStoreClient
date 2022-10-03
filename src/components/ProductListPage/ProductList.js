@@ -95,7 +95,7 @@ export const ProductList = ({ productList, name }) => {
 								{/* <Heart isClick={isClick[index]} onClick={() => handleAddWishList(productItems.id, index)} /> */}
 							</div>
 							<div className="product-details">
-								<h3 className="name-product" onClick={() => navigate(`/product/${convertURL(productItems.name)}-${productItems.id}`)}>{productItems.name}</h3>
+								<h3 className="name-product" onClick={() => navigate(`/product/${productItems.id}`)}>{productItems.name}</h3>
 								<div className='rate'>
 									{productItems.rate === null ? <span className="rated">Chưa có đánh giá </span> : (<> {[...Array(productItems.rate)].map((star) => {
 										return (
@@ -109,7 +109,7 @@ export const ProductList = ({ productList, name }) => {
 									{/* step : 3  
                          if hami le button ma click garryo bahne 
                         */}
-									{productItems.amount > 0 ? (
+									{productItems.amountInStock > 0 ? (
 										<>
 											<button
 												onClick={() => dispatch(addToCart(productItems.id, 1))}

@@ -81,22 +81,22 @@ const PetDetails = () => {
                   <h1>{product?.name==null ? '-':product.name}</h1>
                   <h2>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</h2>
                   {product?.age !== null && <h3>Tuổi: <span>  {product.age}</span> tháng tuổi</h3> }
-                  {product?.gender !== null && <h3>Giới tính: <span> {product?.gender ===  false? 'Đực' : 'Cái'}</span> </h3> }
+                  {/* {product?.gender !== null && <h3>Giới tính: <span> {product?.gender ===  false? 'Đực' : 'Cái'}</span> </h3> } */}
                   {product.origins.length > 0 && <h3>Xuất xứ: <span>{product?.origins.map(origin => origin.name).join(', ')}</span> </h3>}
                   {product.breed !== null && <h3>Chủng loại: <span>{product.breed.name}</span>  </h3>}
                   {product.description !== null && <h3 className='description-product'>Mô tả: <span>{product.description}</span>  </h3>}
                   <div className='amount'>
-                    {product.amount > 0 ? (
+                    {product.amountInStock > 0 ? (
                       <>
                         <h3>Số lượng: </h3>
                           <div className='amount-box f_flex'>
-                            <button className='de' onClick={()=>setQty(qtyNum-1)} disabled={product.amount-qtyNum<0?false:true}>-</button>
+                            <button className='de' onClick={()=>setQty(qtyNum-1)} disabled={product.amountInStock-qtyNum<0?false:true}>-</button>
                               <input className='intput'type="text" value={qtyNum} onChange={(e)=>setQty(e.target.value)}/>
-                            <button className='in' onClick={()=>setQty(qtyNum+1)}  disabled={product.amount-qtyNum>0?false:true}>+</button>
+                            <button className='in' onClick={()=>setQty(qtyNum+1)}  disabled={product.amountInStock-qtyNum>0?false:true}>+</button>
                           </div>
                           <div className='amount-index f_flex'> 
                             <div className='box-amount-index'>
-                              Số lượng còn {product?.amount}
+                              Số lượng còn {product?.amountInStock}
                             </div>
                             <div className='box-share'>
                               <FacebookShareButton url={shareUrl}>
@@ -111,7 +111,7 @@ const PetDetails = () => {
                           <h3>Số lượng: </h3>
                           <div className='amount-index f_flex'>
                             <div className='box-amount-index'> 
-                              Số lượng còn {product?.amount}
+                              Số lượng còn {product?.amountInStock}
                             </div>
                             <div className='box-share'>
                               <div className='fb-share'>
@@ -127,7 +127,7 @@ const PetDetails = () => {
                     
                   </div>
                   <br/>
-                  {product.amount > 0 ? 
+                  {product.amountInStock > 0 ? 
                   (<>
                     <button onClick={AddToCart} type="button" className='btn-add-to-cart' >Mua hàng</button>
                   </>):
