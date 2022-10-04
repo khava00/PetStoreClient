@@ -157,12 +157,13 @@ export const listBreed = (categoryId, setContent) => async(dispatch) =>{
         dispatch({ type: PRODUCT_BREED_REQUEST })
 
         const res = await axiosClient.get(`/common/list/breed?categoryId=${categoryId}`);
-
+        
         setContent(res.data.data);
 
         dispatch({ type: PRODUCT_BREED_SUCCESS, payload: res.data.data})
 
     } catch (error) {
+        console.log(error)
         dispatch({
             type: PRODUCT_BREED_FAIL,
             payload: error.response && error.response.message ? error.response.data.message : error.message

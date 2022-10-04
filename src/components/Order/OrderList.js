@@ -26,7 +26,7 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
 
     return (
         <>
-        {!loading && orderedList?.data?.content !== null ? (
+        {!loading && orderedList?.data?.content.length > 0 ? (
           <Grid.Container gap={3}>
             <Grid>
               <Collapse.Group splitted>
@@ -35,7 +35,7 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
                     <Collapse
                       title={
                         <span className="box-title-order">
-                          <span className="id-order">#{item.orderTrackingNumber}</span>
+                          <span className="id-order">#{item.id}</span>
                           <span className="status-order">{item.orderStatus.name.toUpperCase()}</span>
                         </span>
                       }
@@ -56,7 +56,7 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
                           <div className="box-item-order f_flex">
                             <Avatar
                               size="lg"
-                              src={`${process.env.REACT_APP_API_ENDPOINT}${orderItem.imageUrl}`}
+                              src={`${process.env.REACT_APP_API_ENDPOINT}${orderItem.imagePath}`}
                               color="secondary"
                               squared
                             />
@@ -108,8 +108,8 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
                           </tr>
                         </table>
                         <div className="box-button">
-                          {item.orderStatus.id === 1 && <button onClick={() => payOrder(item.totalPrice, item.paymentId === 1 ? "Paypal" : "Momo", item.orderTrackingNumber)} class="btn-pay-order">Thanh toán</button>}
-                          {item.orderStatus.id < 3 && <button class="btn-cancel-order" onClick={() => showModalConfirm(item.orderTrackingNumber)}>Hủy đơn</button>}
+                          {item.orderStatus.id === 1 && <button onClick={() => payOrder(item.totalPrice, item.paymentId === 1 ? "Paypal" : "Momo", item.id)} class="btn-pay-order">Thanh toán</button>}
+                          {item.orderStatus.id < 3 && <button class="btn-cancel-order" onClick={() => showModalConfirm(item.id)}>Hủy đơn</button>}
                         </div>
                         
                       </div>
@@ -146,7 +146,7 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
             <div className='pagination'>
               {orderedList?.data?.content===null? (
                 <></>
-              ) : <Pagination shadow animated={false} total={orderedList?.data?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={pageNumber + 1}/>}
+              ) : <Pagination shadow animated={false} total={orderedList?.data?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={pageNumber+1}/>}
             </div>
           </Grid.Container>
         ) : (

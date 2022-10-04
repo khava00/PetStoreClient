@@ -28,12 +28,10 @@ export const createPayment = (amount, paymentMethod, orderTrackingNumber, isPlac
   }
 };
 
-export const checkout = (shippingAddress, billingAddress, order, orderItems) => async (dispatch) => {
+export const checkout = ( order, orderItems) => async (dispatch) => {
   dispatch({ type: CHECKOUT_REQUEST });
   try {
     const response = await axiosClient.post('/checkout/purchase', {
-      "shippingAddress": shippingAddress,
-      "billingAddress": billingAddress,
       "order": order,
       "orderItems": orderItems
      });
@@ -47,7 +45,7 @@ export const checkout = (shippingAddress, billingAddress, order, orderItems) => 
 export const cancelOrder = (orderTrackingNumber) => async (dispatch) => {
   dispatch({ type: CANCEL_ORDER_REQUEST });
   try {
-    const response = await axiosClient.put(`/order/cancel?order-tracking-number=${orderTrackingNumber}`);
+    const response = await axiosClient.put(`/order/cancel?orderTrackingNumber=${orderTrackingNumber}`);
     dispatch({ type: CANCEL_ORDER_SUCCESS, payload: response.data.data });
     toast.success("Hủy đặt hàng thành công");
   } catch (error) {
@@ -58,7 +56,7 @@ export const cancelOrder = (orderTrackingNumber) => async (dispatch) => {
 export const getOrderListAll = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_ALL_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?order-status=0&page-number=${pageNumber}&page-size=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=0&pageNumber=${pageNumber}&pageSize=${pageSize}`);
 
     dispatch({ type: ORDER_LIST_ALL_SUCCESS, payload: response.data });
   } catch (error) {
@@ -69,7 +67,7 @@ export const getOrderListAll = (pageNumber, pageSize) => async (dispatch) => {
 export const getOrderListUnpaid = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_UNPAID_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?order-status=1&page-number=${pageNumber}&page-size=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=1&pageNumber=${pageNumber}&pageSize=${pageSize}`);
 
     dispatch({ type: ORDER_LIST_UNPAID_SUCCESS, payload: response.data });
   } catch (error) {
@@ -80,7 +78,7 @@ export const getOrderListUnpaid = (pageNumber, pageSize) => async (dispatch) => 
 export const getOrderListProcessing = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_PROCESSING_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?order-status=2&page-number=${pageNumber}&page-size=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=2&pageNumber=${pageNumber}&pageSize=${pageSize}`);
     
     dispatch({ type: ORDER_LIST_PROCESSING_SUCCESS, payload: response.data });
   } catch (error) {
@@ -91,7 +89,7 @@ export const getOrderListProcessing = (pageNumber, pageSize) => async (dispatch)
 export const getOrderListDelivering = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_DELIVERING_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?order-status=3&page-number=${pageNumber}&page-size=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=3&pageNumber=${pageNumber}&pageSize=${pageSize}`);
     
     dispatch({ type: ORDER_LIST_DELIVERING_SUCCESS, payload: response.data });
   } catch (error) {
@@ -102,7 +100,7 @@ export const getOrderListDelivering = (pageNumber, pageSize) => async (dispatch)
 export const getOrderListCancel = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_CANCEL_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?order-status=5&page-number=${pageNumber}&page-size=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=4&pageNumber=${pageNumber}&pageSize=${pageSize}`);
     
     dispatch({ type: ORDER_LIST_CANCEL_SUCCESS, payload: response.data });
   } catch (error) {

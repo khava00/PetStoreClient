@@ -91,6 +91,13 @@ const UserChangePassword = () => {
     ) {
       dispatch(changePassword(userInfo.username, oldPassword, newPassword));
     }
+    setOldPassword("")
+    setNewPassword("")
+    setNewPasswordConfirm("")
+    setNewPasswordToched(false);
+    setNewPasswordConfirmToched(false);
+    setOldPasswordToched(false);
+
   };
 
   useEffect(() => {

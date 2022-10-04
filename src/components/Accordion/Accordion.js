@@ -13,14 +13,14 @@ const Accordion = ({ category }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState([]);
-  console.log(content)
+  
   useEffect(() => {
     dispatch(listBreed(category.id, setContent));
   }, []);
 
   return (
     <li className="accordion-item">
-      <div className="accordion-title">
+      <div className="accordion-title">   
         <span
           onClick={() => {
             navigate(`/pages/${category.id}`);
@@ -30,7 +30,7 @@ const Accordion = ({ category }) => {
         >
           {category.name}
         </span>
-        {content.length > 0 && (
+        {content?.length > 0 && (
           <span onClick={() => setIsActive(!isActive)}>
             {isActive ? (
               <MdExpandMore />

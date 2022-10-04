@@ -18,6 +18,9 @@ const CheckoutForm = () => {
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems"))
   );
+  const [reciever,setReciever] = useState("")
+  const [phone,setPhone] = useState("")
+  const [address,setAddress] = useState("")
   const [paymentMethod, setPaymentMethod] = useState("");
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [orderItems, setOrderItems] = useState([]);
@@ -41,20 +44,13 @@ const CheckoutForm = () => {
 
   const placeOrder = () => {
     dispatch(checkout({
-      "provinceCity": provinceShippingName,
-      "district": districtShippingName,
-      "wardCommune": wardShippingName,
-      "exactAddress": exactShippingAddress,
-    }, {
-      "provinceCity": checked ? provinceShippingName : provinceBillingName,
-      "district": checked ? districtShippingName : districtBillingName,
-      "wardCommune": checked ? wardShippingName : wardBillingName,
-      "exactAddress": checked ? exactShippingAddress : exactBillingAddress,
-    }, {
       "orderStatusId": 1,
-      "orderPaymentId": paymentMethod === "Paypal" ? 1 : 2,
-      "totalPrice": total,
-      "totalQuantity": totalQuantity
+      "PaymentId": paymentMethod === "Paypal" ? 1 : 2,
+      "TotalPrice": total,
+      "TotalQuantity": totalQuantity,
+      "Reciever":reciever,
+      "Address":address,
+      "Phone":phone
     }, orderItems
     ));
   };
@@ -92,187 +88,37 @@ const CheckoutForm = () => {
               <div className="box-checkout-form">
                 
                 <h2 className="title">
-                  <i class="fa-solid fa-truck"></i> Thông tin giao hàng
+                  <i class="fa-solid fa-truck"></i> Địa chỉ nhận hàng
                 </h2>
                 <Container>
                   <Row gap={1} className="checkout-element-row">
                     <Col className="box-checkout-element">
                       <label for="lastName">
-                        <i class="fa-solid fa-city"></i> Tỉnh/Thành phố
+                        <i class="fa-solid fa-city"></i> Họ tên
                       </label>
                       <div className="address-autocomplete">
-                        <AutoComplete
-                          getItemValue={(item) => item.name}
-                          items={provinces.data.filter((province) =>
-                            province.name.includes(provinceShippingName)
-                          )}
-                          renderItem={(item, isHighlighted) => (
-                            <div
-                              style={{
-                                verticalAlign: "middle",
-                                background: isHighlighted
-                                  ? "lightgray"
-                                  : "white",
-                              }}
-                            >
-                              <div>{item.name}</div>
-                            </div>
-                          )}
-                          menuStyle={{
-                            border: "solid 1px #000",
-                            backgroundColor: "#dfd",
-                            zIndex: 1,
-                            position: "absolute",
-                            top: 60,
-                            left: 10,
-                            overflow: "auto",
-                            maxHeight: 100,
-                          }}
-                          inputProps={{
-                            style: { fontSize: 18, width: "100%", padding: 3 },
-                          }}
-                          value={provinceShippingName || ""}
-                          onChange={(e) =>
-                            setProvinceShippingName(e.target.value)
-                          }
-                          onSelect={(provinceShippingName, item) => {
-                            setProvinceShippingName(provinceShippingName);
-                            dispatch(getProvinceShipping(item.code));
-                          }}
-                        />
+                        <input className="address-autocomplete-input" value={reciever}  onChange={(e)=>setReciever(e.target.value)}/>
                       </div>
                     </Col>
                     <Col className="box-checkout-element">
                       <label for="firstName">
-                        <i class="fa-solid fa-city"></i> Quận/Huyện
+                        <i class="fa-solid fa-city"></i> Số điện thoại
                       </label>
                       <div className="address-autocomplete">
-                        <AutoComplete
-                          getItemValue={(item) => item.name}
-                          items={
-                            provinceShipping.data.districts?.length > 0
-                              ? provinceShipping.data.districts.filter(
-                                  (district) =>
-                                    district.name.includes(districtShippingName)
-                                )
-                              : []
-                          }
-                          renderItem={(item, isHighlighted) => (
-                            <div
-                              style={{
-                                verticalAlign: "middle",
-                                background: isHighlighted
-                                  ? "lightgray"
-                                  : "white",
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: "inline-block",
-                                  minWidth: 200,
-                                }}
-                              >
-                                {item.name}
-                              </div>
-                            </div>
-                          )}
-                          menuStyle={{
-                            border:
-                              provinceShipping.data.districts?.length > 0
-                                ? "solid 1px #000"
-                                : "solid 1px transparent",
-                            backgroundColor: "#dfd",
-                            zIndex: 1,
-                            top: 60,
-                            left: 10,
-                            overflow: "auto",
-                            maxHeight: 100,
-                          }}
-                          inputProps={{
-                            style: { fontSize: 18, width: "100%", padding: 3 },
-                          }}
-                          value={districtShippingName || ""}
-                          onChange={(e) =>
-                            setDistrictShippingName(e.target.value)
-                          }
-                          onSelect={(districtShippingName, item) => {
-                            setDistrictShippingName(districtShippingName);
-                            dispatch(getDistrictShipping(item.code));
-                          }}
-                        />
+                        <input className="address-autocomplete-input" value={phone}  onChange={(e)=>setPhone(e.target.value)}/>
                       </div>
                     </Col>
                   </Row>
                   <Row gap={1}>
                     <Col className="box-checkout-element">
                       <label for="email">
-                        <i class="fa-solid fa-city"></i> Phường/Xã
+                        <i class="fa-solid fa-city"></i> Địa chỉ chi tiết
                       </label>
                       <div className="address-autocomplete">
-                        <AutoComplete
-                          getItemValue={(item) => item.name}
-                          items={
-                            districtShipping.data.wards?.length > 0
-                              ? districtShipping.data.wards.filter((ward) =>
-                                  ward.name.includes(wardShippingName)
-                                )
-                              : []
-                          }
-                          renderItem={(item, isHighlighted) => (
-                            <div
-                              style={{
-                                verticalAlign: "middle",
-                                background: isHighlighted
-                                  ? "lightgray"
-                                  : "white",
-                              }}
-                            >
-                              <div style={{ display: "inline-block" }}>
-                                {item.name}
-                              </div>
-                            </div>
-                          )}
-                          menuStyle={{
-                            border:
-                              districtShipping.data.wards?.length > 0
-                                ? "solid 1px #000"
-                                : "solid 1px transparent",
-                            backgroundColor: "#dfd",
-                            zIndex: 1,
-                            top: 60,
-                            left: 10,
-                            overflow: "auto",
-                            maxHeight: 100,
-                          }}
-                          inputProps={{
-                            style: { fontSize: 18, width: "100%", padding: 3 },
-                          }}
-                          value={wardShippingName || ""}
-                          onChange={(e) => setWardShippingName(e.target.value)}
-                          onSelect={(wardShippingName) =>
-                            setWardShippingName(wardShippingName)
-                          }
-                        />
+                          <input className="address-autocomplete-input" value={address} onChange={(e)=>setAddress(e.target.value)}/>
                       </div>
                     </Col>
-                    <Col className="box-checkout-element">
-                      <label for="email">
-                        <i class="fa-solid fa-location-dot"></i> Địa chỉ chi tiết
-                      </label>
-                      <Input
-                        // clearable
-                        value={exactShippingAddress}
-                        onChange={(e) => setExactShippingAddress(e.target.value)}
-                        helperColor="error"
-                        // helperText={lastNameToched && helperLastName.text}
-                        // onFocus={() => setLastNameToched(true)}
-                        type="text"
-                        bordered
-                        fullWidth
-                        color="primary"
-                        size="md"
-                      />
-                    </Col>
+                    
                   </Row>
                 </Container>
                 <h2 className="title">
@@ -305,19 +151,7 @@ const CheckoutForm = () => {
                     </Col>
                   </Row>
                 </Container>
-                <h2 className="title">
-                  <i class="fa-solid fa-money-bill-1"></i> Thông tin thanh toán
-                </h2>
-                <br />
-                <Checkbox
-                  disableAnimation={true}
-                  className="checkout-checkbox"
-                  value={checked}
-                  onChange={() => setChecked(!checked)}
-                  defaultSelected={true}
-                >
-                  Thông tin thanh toán giống thông tin giao hàng
-                </Checkbox>
+                
                 {checked && (
                   <Container>
                     <Row gap={1} className="checkout-element-row">

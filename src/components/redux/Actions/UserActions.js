@@ -84,7 +84,7 @@ export const updateProfileImage = (imageFile) => async(dispatch) =>{
     try {
         dispatch({type:USER_UPDATE_AVATAR_REQUEST})
 
-        const res = await axiosClient.post(`/user/upload-profile-image`, imageFile)
+        const res = await axiosClient.post(`/user/upload-profile-image`,imageFile)
         dispatch({type: USER_UPDATE_AVATAR_SUCCESS, payload: res.data.data})
         toast.success("Thay đổi ảnh thành công.");
 
@@ -94,6 +94,7 @@ export const updateProfileImage = (imageFile) => async(dispatch) =>{
         localStorage.setItem("user",JSON.stringify(user))
 
     } catch (error) {
+        console.log(error)
         toast.error(error.response.data.errorMessage);
         dispatch({
             type:USER_UPDATE_AVATAR_FAIL,

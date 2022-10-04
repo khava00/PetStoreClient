@@ -42,7 +42,7 @@ const UserDetail = () => {
   useEffect(() => {
     if (imageFile) {
       const formData = new FormData();
-      formData.append("profileImage", imageFile);
+      formData.append("file", imageFile);
       dispatch(updateProfileImage(formData));
     }
   }, [imageFile, dispatch]);
@@ -141,6 +141,7 @@ const UserDetail = () => {
           phone: phone
         })
       );
+      setActiveEdit(false)
     }
   };
 
@@ -149,7 +150,12 @@ const UserDetail = () => {
       <div className="left">
         <div onClick={onChangeProfileImage} class="content_img">
           <Avatar
-            src={userInfo?.avatarImg}
+            src={
+              userInfo?.avatarImg?.substring(0).search('https://robohash.org/') === 0
+              || userInfo?.avatarImg?.substring(0).search('azurewebsites.net/') === 0
+                ? userInfo.avatarImg
+                : `${process.env.REACT_APP_API_ENDPOINT}${userInfo.avatarImg}`
+            }
             css= {{size:"$40",zIndex:"$1"}}
             className="avatar"
             zoomed
