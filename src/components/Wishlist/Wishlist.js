@@ -10,6 +10,7 @@ const Wishlist = () => {
   const addWishList = useSelector((state)=>state.addWishList)
   const [ pageNumber, setPageNumber ] = useState(1);
   const loading = addWishList;
+  console.log(addWishList)
   useEffect(()=>{
       dispatch(WishListProductPage(pageNumber,4))
   },[dispatch,pageNumber,loading])

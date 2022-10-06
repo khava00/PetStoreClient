@@ -71,11 +71,11 @@ const UserDetailPage = () => {
         >
           <Order/>
         </div>
-        {/* <div
+        <div
           className={toggleState === 4 ? "content  active-content" : "content"}
         >
           <Wishlist/>
-        </div> */}
+        </div>
       </div>
     </div>
   );

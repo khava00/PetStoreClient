@@ -2,54 +2,20 @@ import { useState, useEffect } from "react";
 import { Link } from "@nextui-org/react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/Actions/CartActions";
 import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
-// import Heart from 'react-animated-heart'
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 
 import "./style.css"
 
 export const ProductList = ({ productList, name }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	// const wishList = useSelector((state) => state.wishList)
-	const [wishList , setWishList] = useState(JSON.parse(localStorage.getItem("products")).content?.length > 0 ? JSON.parse(localStorage.getItem("products")).content : [])
-	const [isClick, setClick] = useState([])
-
-
-	const handleAddWishList = (id, index) => {
-		const existItem = wishList.find((x) => x.id === id)
-		if (existItem) {
-			let newArr = [...isClick]
-			newArr[index] = false
-			setClick(newArr)
-		}
-		else {
-			let newArr = [...isClick]
-			newArr[index] = true
-			setClick(newArr)
-		}
-
+	const handleAddWishList = (id) => {
 		dispatch(addWishListProductPage(id))
 	}
 
-	// useEffect(() => {
-	// 	let newArr = new Array(productList.products.content?.length).fill(false);
-	// 	setClick(newArr)
-	// 	productList.products.content?.map((item, index) => {
-	// 		const existItem = wishList.find((x) => x.id === item.id)
-	// 		if (existItem) {
-	// 			const newArr = [...isClick]
-	// 			newArr[index] = false
-	// 			setClick(newArr)
-	// 		}
-	// 		else {
-	// 			const newArr = [...isClick]
-	// 			newArr[index] = true
-	// 			setClick(newArr)
-	// 		}
-	// 	})
-	// }, [productList])
 	const convertURL= (str)=>{
 		// Chuyển hết sang chữ thường
 		str = str.toLowerCase();     
@@ -92,7 +58,7 @@ export const ProductList = ({ productList, name }) => {
 								/>
 							</div>
 							<div className='product-like'>
-								{/* <Heart isClick={isClick[index]} onClick={() => handleAddWishList(productItems.id, index)} /> */}
+								{productItems.favourite ? <BsHeartFill onClick={()=>handleAddWishList(productItems.id)} /> :<BsHeart onClick={()=>handleAddWishList(productItems.id)}/> }
 							</div>
 							<div className="product-details">
 								<h3 className="name-product" onClick={() => navigate(`/product/${productItems.id}`)}>{productItems.name}</h3>

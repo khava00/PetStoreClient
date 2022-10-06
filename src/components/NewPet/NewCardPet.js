@@ -7,6 +7,8 @@ import { useDispatch,useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { addToCart } from "../redux/Actions/CartActions"
 import toast from 'react-hot-toast';
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
 const SampleNextArrow = (props) => {
     const { onClick } = props
     return (
@@ -42,7 +44,9 @@ const SampleNextArrow = (props) => {
   useEffect(()=>{
     dispatch(listProduct("cat",1,8))
   },[dispatch])
-  
+  const handleAddWishList = (id) => {
+		dispatch(addWishListProductPage(id))
+	}
   const covertURL= (str)=>{
     // Chuyển hết sang chữ thường
     str = str.toLowerCase();     
@@ -80,6 +84,9 @@ const SampleNextArrow = (props) => {
                 <div className='product mtop'>
                   <div className='img'>
                     <span className='discount'>New</span>
+                    <div className='product-like'>
+                      {productItems.favourite ? <BsHeartFill onClick={()=>handleAddWishList(productItems.id)} /> :<BsHeart onClick={()=>handleAddWishList(productItems.id)}/> }
+                    </div>
                     <div className="box-img-product">
                       <img className="img-product"  src= { `${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
                     </div>
@@ -88,6 +95,7 @@ const SampleNextArrow = (props) => {
                   <Link  to = {`/product/${productItems.id}`}>
                     <h3>{productItems.name}</h3>
                     </Link>
+                    
                     <div className='rate'>
                       {productItems.rate=== null ? <span className="rated">Chưa có đánh giá </span>: (<> {[...Array(productItems.rate)].map((star) => {        
                           return (         

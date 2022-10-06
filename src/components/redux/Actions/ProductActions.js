@@ -163,7 +163,6 @@ export const listBreed = (categoryId, setContent) => async(dispatch) =>{
         dispatch({ type: PRODUCT_BREED_SUCCESS, payload: res.data.data})
 
     } catch (error) {
-        console.log(error)
         dispatch({
             type: PRODUCT_BREED_FAIL,
             payload: error.response && error.response.message ? error.response.data.message : error.message
@@ -204,7 +203,7 @@ export const WishListProductPage = (pageNumber,pageSize)=> async(dispatch,getSta
     try {
         dispatch({type: PRODUCT_WISH_LIST_REQUEST})
 
-        const res = await axiosClient.get(`/user/wish-list?page-number=${pageNumber}&page-size=${pageSize}`)
+        const res = await axiosClient.get(`/product/wish-list?pageNumber=${pageNumber}&pageSize=${pageSize}`)
         dispatch({type: PRODUCT_WISH_LIST_SUCCESS, payload: res.data.data })
         
     } catch (error) {
@@ -213,7 +212,6 @@ export const WishListProductPage = (pageNumber,pageSize)=> async(dispatch,getSta
             payload: error.errorMessage
         })
     }
-    localStorage.setItem("products", JSON.stringify(getState().wishList.products));
     
 }
 
@@ -221,10 +219,13 @@ export const addWishListProductPage = (productId)=> async(dispatch,getState) =>{
 
     try {
         dispatch({type:ADD_PRODUCT_WISH_LIST_REQUEST})
-        const res = await axiosClient.post(`/user/wish-list?product-id=${productId}`)
+        const res = await axiosClient.put(`/product/wish-list?productId=${productId}`)
         dispatch({type: ADD_PRODUCT_WISH_LIST_SUCCESS, payload: res.data.data })
-        toast.success("")
-        localStorage.setItem("products", JSON.stringify(getState().wishList.products));
+        toast.success("Thêm thành công")
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000)
+        
     } catch (error) {
         dispatch({
             type: ADD_PRODUCT_WISH_LIST_FAIL,
