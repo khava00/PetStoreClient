@@ -5,17 +5,16 @@ import toast from 'react-hot-toast';
 export const login = (username,password) => async(dispatch) =>{
     try {
         dispatch({type:USER_LOGIN_REQUEST})
-
         const res = await axiosClient.post(`/user/login`,{username,password})
 
         dispatch({type: USER_LOGIN_SUCCESS, payload: res.data.data})
         toast.success("Đăng nhập thành công");
         localStorage.setItem("user",JSON.stringify(res.data.data))
+        window.location.href = "/profile"
         
     } catch (error) {
-        
-        // toast.error(error.response.data.errorMessage);
-        console.log(error);
+        console.log(error)
+        toast.error(error.errorMessage);
         dispatch({
             type:USER_LOGIN_FAIL,
             payload: error.response && error.response.data.errorMessage ? error.response.data.errorMessage : error.message

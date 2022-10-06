@@ -9,15 +9,16 @@ export const createPayment = (amount, paymentMethod, orderTrackingNumber, isPlac
   
   try {
     const response = await axiosClient.post(paymentMethod === "Momo" ? `/pay/momo?amount=${amount}&orderTrackingNumber=${orderTrackingNumber}` : `/pay/paypal?amount=${amount * 0.00004263}&orderTrackingNumber=${orderTrackingNumber}`).then(res => {
+      console.log(res)
       if (isPlaceOrder) {
         setTimeout(() => {
-          window.open(res.data.data, '_blank').focus();
+          window.open(res.data, '_blank').focus();
           dispatch({ type: PAYMENT_SUCCESS, payload: res });
           localStorage.removeItem("cartItems");
           window.location.href = "/";
         }, 5000)
       } else {
-        window.open(res.data.data, '_blank').focus();
+        window.open(res.data, '_blank').focus();
         dispatch({ type: PAYMENT_SUCCESS, payload: res });
       }
       
@@ -100,7 +101,7 @@ export const getOrderListDelivering = (pageNumber, pageSize) => async (dispatch)
 export const getOrderListCancel = (pageNumber, pageSize) => async (dispatch) => {
   dispatch({ type: ORDER_LIST_CANCEL_REQUEST });
   try {
-    const response = await axiosClient.get(`/user/order?orderStatus=4&pageNumber=${pageNumber}&pageSize=${pageSize}`);
+    const response = await axiosClient.get(`/user/order?orderStatus=5&pageNumber=${pageNumber}&pageSize=${pageSize}`);
     
     dispatch({ type: ORDER_LIST_CANCEL_SUCCESS, payload: response.data });
   } catch (error) {

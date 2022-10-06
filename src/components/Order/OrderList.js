@@ -146,7 +146,7 @@ export const OrderList = ({loading, orderedList, pageNumber, setPageNumber}) => 
             <div className='pagination'>
               {orderedList?.data?.content===null? (
                 <></>
-              ) : <Pagination shadow animated={false} total={orderedList?.data?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={pageNumber+1}/>}
+              ) : <Pagination shadow animated={false} total={orderedList?.data?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={pageNumber}/>}
             </div>
           </Grid.Container>
         ) : (

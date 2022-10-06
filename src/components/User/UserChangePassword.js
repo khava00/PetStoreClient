@@ -113,7 +113,12 @@ const UserChangePassword = () => {
       <div className="left">
         <div class="content_img">
           <Avatar
-            src={userInfo.avatarImg}
+            src={
+              userInfo?.avatarImg?.substring(0).search('https://robohash.org/') === 0
+              || userInfo?.avatarImg?.substring(0).search('azurewebsites.net/') === 0
+                ? userInfo.avatarImg
+                : `${process.env.REACT_APP_API_ENDPOINT}${userInfo.avatarImg}`
+            }
             css={{ size: "$40" }}
           />
           <br/>
