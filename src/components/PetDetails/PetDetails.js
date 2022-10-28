@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import Accordion from "../Accordion/Accordion";
 import { Helmet } from 'react-helmet';
 import { FacebookIcon, FacebookShareButton } from 'react-share'
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { addWishListProductPage} from "../redux/Actions/ProductActions";
 import React from 'react';
 
 const PetDetails = () => {
@@ -17,7 +19,9 @@ const PetDetails = () => {
   const { id } = useParams();
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product } = productDetails;
-  // const [siteMetadata, setSiteMetadata] = useState({})
+  const handleAddWishList = (id) => {
+		dispatch(addWishListProductPage(id))
+	}
   useEffect(()=>{
     dispatch(listProductDetails(id))
   }, [id, dispatch])
@@ -85,6 +89,7 @@ const PetDetails = () => {
                   {product.origins.length > 0 && <h3>Xuất xứ: <span>{product?.origins.map(origin => origin.name).join(', ')}</span> </h3>}
                   {product.breed !== null && <h3>Chủng loại: <span>{product.breed.name}</span>  </h3>}
                   {product.description !== null && <h3 className='description-product'>Mô tả: <span>{product.description}</span>  </h3>}
+                  
                   <div className='amount'>
                     {product.amountInStock > 0 ? (
                       <>
@@ -102,9 +107,12 @@ const PetDetails = () => {
                               <FacebookShareButton url={shareUrl}>
                                 <FacebookIcon size={40} round={true}/>
                               </FacebookShareButton>
-                            </div>
-                            
+                              </div>
+                              <div className='box-like'>
+                                {product.favourite ? <BsHeartFill style={{fontSize:"30px",color:"#e94560"}} onClick={()=>handleAddWishList(product.id)} /> :<BsHeart style={{fontSize:"30px",color:"#e94560"}} onClick={()=>handleAddWishList(product.id)}/> }
+                              </div>
                           </div>
+                          
                       </>
                       ):(
                         <>   

@@ -5,6 +5,9 @@ import { Link } from "react-router-dom"
 import { listProduct } from "../redux/Actions/ProductActions"
 import { useDispatch,useSelector } from "react-redux"
 import { addToCart } from "../redux/Actions/CartActions"
+import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+
 import toast from "react-hot-toast"
 
   const TitleListPet = () => {
@@ -13,7 +16,9 @@ import toast from "react-hot-toast"
     useEffect(()=>{
       dispatch(listProduct("dog",1,8))
     },[dispatch])
-    const [isClick,setClick] = useState(false)
+    const handleAddWishList = (id) => {
+      dispatch(addWishListProductPage(id))
+    }
     const covertURL= (str)=>{
       // Chuyển hết sang chữ thường
       str = str.toLowerCase();     
@@ -52,7 +57,7 @@ import toast from "react-hot-toast"
                     <span className='discount'>New</span>
                     <img className="img-product"src= { `${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
                     <div className='product-like'>
-                      {/* <Heart isClick={isClick} onClick={() => setClick(!isClick)} /> */}
+                    {/* {productItems.favourite===true ?<BsHeartFill onClick={()=>handleAddWishList(productItems.id)}/>: <BsHeart onClick={()=>handleAddWishList(productItems.id)}/>   } */}
                     </div>
                   </div>
                   <div className='product-details'>

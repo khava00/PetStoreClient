@@ -31,7 +31,7 @@ const SampleNextArrow = (props) => {
   }
   const NewCardPet = () => {
     const settings = {
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 4,
@@ -84,9 +84,6 @@ const SampleNextArrow = (props) => {
                 <div className='product mtop'>
                   <div className='img'>
                     <span className='discount'>New</span>
-                    <div className='product-like'>
-                      {productItems.favourite ? <BsHeartFill onClick={()=>handleAddWishList(productItems.id)} /> :<BsHeart onClick={()=>handleAddWishList(productItems.id)}/> }
-                    </div>
                     <div className="box-img-product">
                       <img className="img-product"  src= { `${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
                     </div>

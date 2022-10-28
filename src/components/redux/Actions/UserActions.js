@@ -47,9 +47,6 @@ export const register = (email, username, password) => async(dispatch) =>{
 
         dispatch({type: USER_REGISTER_SUCCESS, payload: res.data.data})
         toast.success("Đăng ký thành công.");
-        toast.success("Vui lòng xác thực email để kích hoạt tài khoản.", { duration: 5000 });
-        localStorage.setItem("user",JSON.stringify(res.data.data))
-        
     } catch (error) {
         
         toast.error(error.response.data.errorMessage);
