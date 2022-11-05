@@ -142,7 +142,6 @@ const PetDetails = () => {
                   (<>
                     <button type="button" className='btn-add-to-cart' disabled>Hết sản phẩm</button>
                   </>)}
-
                 </div>
             </section> 
           </>
