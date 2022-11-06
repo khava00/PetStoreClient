@@ -44,7 +44,7 @@ const PetDetails = () => {
     //   }
     // },[product])
   return (
-    <div className='box-details'>
+    <div className='box-details container'>
         {/* <Helmet>
           <title>{product.name}</title>
           <meta property="og:type" content="website"/>

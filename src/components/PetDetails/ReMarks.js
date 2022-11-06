@@ -1,9 +1,20 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import "./PetDetails.css"
 import {BiCommentCheck} from "react-icons/bi"
-import { Card, Divider, Grid, Pagination, Text, Textarea} from "@nextui-org/react";
+import { Card, Grid, Pagination, Text} from "@nextui-org/react";
 import Rating from "react-rating";
+import { getReviewsProduct } from '../redux/Actions/ProductActions';
+import {useSelector,useDispatch} from 'react-redux';
+import { useParams } from 'react-router-dom';
 const ReMarks = () => {
+    const { id } = useParams();
+    const dispatch= useDispatch()
+    const getReviews = useSelector((state)=>state.getReviewsProduct)
+    const [ pageNumber, setPageNumber ] = useState(1);
+    useEffect(()=>{
+        dispatch(getReviewsProduct(id,pageNumber,2))
+    },[dispatch,pageNumber,id])
+    console.log(id)
   return (
     <section className='remarks container'>
         <div className='reviews  f_flex'>
@@ -15,8 +26,7 @@ const ReMarks = () => {
                 <Rating
                     className='rating-comment'
                     emptySymbol="fa-regular fa-star"
-                    fullSymbol="fa-solid fa-star"
-                    
+                    fullSymbol="fa-solid fa-star"  
                 />
             </div>
             <br/>
@@ -29,60 +39,56 @@ const ReMarks = () => {
             <button  type="button" className='btn-comment' >Bình luận</button>
         </div>
         <div className='box-reviews'>
+            {getReviews.reviews?.content.length===0? <h1>Chưa có bình luận</h1>:
+                (<>
+                {getReviews.reviews?.content.map((review)=>(
+                        <>
+                        <Card css={{ p: "$6", mw: "400px" }}>
+                            <Card.Header>
+                                <img
+                                alt="nextui logo"
+                                src={
+                                    review?.avatarImg?.substring(0).search('https://robohash.org/') === 0
+                                    || review?.avatarImg?.substring(0).search('azurewebsites.net/') === 0
+                                      ? review.avatarImg
+                                      : `${process.env.REACT_APP_API_ENDPOINT}${review.avatarImg}`
+                                  }
+                                width="34px"
+                                height="34px"
+                                />
+                                <Grid.Container css={{ pl: "$6" }}>
+                                <Grid xs={12}>
+                                    <Text h4 css={{ lineHeight: "$xs" }}>
+                                        {review.username}
+                                    </Text>
+                                </Grid>
+                                <Grid xs={12}>
+                                    <Rating
+                                        className='rating-reviews'
+                                        emptySymbol="fa-regular fa-star"
+                                        fullSymbol="fa-solid fa-star"  
+                                        initialRating={review.rate}
+                                        readonly
+                                    />
+                                </Grid>
+                                </Grid.Container>
+                            </Card.Header>
+                            <Card.Body css={{ py: "$2" }}>
+                                <Text>
+                                {review.remark}
+                                </Text>
+                            </Card.Body>
+                        </Card>
+                        <br/>
+                        </> 
 
-            <Card css={{ p: "$6", mw: "400px" }}>
-                <Card.Header>
-                    <img
-                    alt="nextui logo"
-                    src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-                    width="34px"
-                    height="34px"
-                    />
-                    <Grid.Container css={{ pl: "$6" }}>
-                    <Grid xs={12}>
-                        <Text h4 css={{ lineHeight: "$xs" }}>
-                        Next UI
-                        </Text>
-                    </Grid>
-                    <Grid xs={12}>
-                        <Text css={{ color: "$accents8" }}>nextui.org</Text>
-                    </Grid>
-                    </Grid.Container>
-                </Card.Header>
-                <Card.Body css={{ py: "$2" }}>
-                    <Text>
-                    Make beautiful websites regardless of your design experience.
-                    </Text>
-                </Card.Body>
-            </Card>
-            <br/>
-            <Card css={{ p: "$6", mw: "400px" }}>
-                <Card.Header>
-                    <img
-                    alt="nextui logo"
-                    src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-                    width="34px"
-                    height="34px"
-                    />
-                    <Grid.Container css={{ pl: "$6" }}>
-                    <Grid xs={12}>
-                        <Text h4 css={{ lineHeight: "$xs" }}>
-                        Next UI
-                        </Text>
-                    </Grid>
-                    <Grid xs={12}>
-                        <Text css={{ color: "$accents8" }}>nextui.org</Text>
-                    </Grid>
-                    </Grid.Container>
-                </Card.Header>
-                <Card.Body css={{ py: "$2" }}>
-                    <Text>
-                    Make beautiful websites regardless of your design experience.
-                    </Text>
-                </Card.Body>
-            </Card>
-            <br/>
-            <Pagination total={5} initialPage={1} />;
+                    ))}
+                    {getReviews.reviews?.content.length===0? (
+                        <></>
+                        ):<Pagination shadow animated={false} total={getReviews.reviews?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />}    
+                        </>)
+                    }              
+
         </div>
 
 

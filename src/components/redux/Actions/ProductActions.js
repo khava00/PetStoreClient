@@ -39,6 +39,9 @@ import {
     ADD_PRODUCT_WISH_LIST_FAIL,
     ADD_PRODUCT_WISH_LIST_SUCCESS,
     ADD_PRODUCT_WISH_LIST_REQUEST,
+    PRODUCT_GET_REVIEW_REQUEST,
+    PRODUCT_GET_REVIEW_SUCCESS,
+    PRODUCT_GET_REVIEW_FAIL,
     // ADD_REMARK_REQUEST,
     // ADD_REMARK_SUCCESS,
     // ADD_REMARK_FAIL,
@@ -115,6 +118,23 @@ export const listProductDetails = (id) => async(dispatch) =>{
             payload: error.response && error.response.message ? error.response.data.message : error.message
         })
     }
+}
+//getReviews
+export const getReviewsProduct = (id,pageNumber,pageSize)=> async(dispatch,getState) =>{
+    try {
+        dispatch({type: PRODUCT_GET_REVIEW_REQUEST})
+
+        const res = await axiosClient.get(`/product/remark?productId=${id}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        dispatch({type: PRODUCT_GET_REVIEW_SUCCESS, payload: res.data.data })
+        
+    } catch (error) {
+        console.log(error)
+        dispatch({
+            type: PRODUCT_GET_REVIEW_FAIL,
+            payload: error.response.message
+        })
+    }
+    
 }
 
 // search product
@@ -214,6 +234,7 @@ export const WishListProductPage = (pageNumber,pageSize)=> async(dispatch,getSta
     }
     
 }
+
 
 export const addWishListProductPage = (productId)=> async(dispatch,getState) =>{
 

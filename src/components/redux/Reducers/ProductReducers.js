@@ -35,7 +35,10 @@ import {
     ADD_PRODUCT_WISH_LIST_REQUEST,
     SEARCH_PRODUCT_LIST_REQUEST,
     SEARCH_PRODUCT_LIST_SUCCESS,
-    SEARCH_PRODUCT_LIST_FAIL
+    SEARCH_PRODUCT_LIST_FAIL,
+    PRODUCT_GET_REVIEW_REQUEST,
+    PRODUCT_GET_REVIEW_SUCCESS,
+    PRODUCT_GET_REVIEW_FAIL
 } from "../Constants/ProductConstants"
 
 //productlist
@@ -133,7 +136,19 @@ export const productListSuggestReducer = (state = {},action) =>{
             return state;
     }
 }
-
+//get reviews
+export const getReviewsReducer = (state = {},action) =>{
+    switch (action.type) {
+        case PRODUCT_GET_REVIEW_REQUEST:
+            return {...state, loading: true}
+        case PRODUCT_GET_REVIEW_SUCCESS:
+            return {loading: false, reviews: action.payload}
+        case PRODUCT_GET_REVIEW_FAIL:
+            return {loading: false, error: action.payload}
+        default:
+            return state;
+    }
+}
 // list category
 export const categoryListReducer = (state = {},action) =>{
     switch (action.type) {
