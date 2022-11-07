@@ -1,11 +1,12 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-import { addWishListReducer, categoryListReducer, currentNameListReducer, getReviewsReducer, productDetailsReducer, productListHotReducer, productListNewReducer, productListPageReducer, productListReducer, productListRelatedReducer, productListSuggestReducer, remarkListReducer, searchProductListReducer, wishListReducer } from "./Reducers/ProductReducers";
+import { addReviewReducer, addWishListReducer, categoryListReducer, currentNameListReducer, getReviewsReducer, productDetailsReducer, productListHotReducer, productListNewReducer, productListPageReducer, productListReducer, productListRelatedReducer, productListSuggestReducer, remarkListReducer, searchProductListReducer, wishListReducer } from "./Reducers/ProductReducers";
 import { userLoginReducer, userRegisterReducer,userDetailsReducer, changePasswordReducer, } from "./Reducers/UserReducers";
 import { cartReducer } from "./Reducers/CartReducers";
 import {  DistrictBillingReducer, DistrictShippingReducer, ProvinceBillingReducer, ProvinceShippingReducer, ProvincesReducer } from "./Reducers/AddressReducer";
 import { checkoutReducer, listOrderAllReducer, listOrderCancelReducer, listOrderDeliveringReducer, listOrderProcessingReducer, listOrderUnpaidReducer } from "./Reducers/CheckoutReducer";
+import { addReviewProduct } from "./Actions/ProductActions";
 
 const reducer = combineReducers({
    productListNew: productListNewReducer,
@@ -35,7 +36,8 @@ const reducer = combineReducers({
   orderListProcessing: listOrderProcessingReducer,
   orderListDelivering: listOrderDeliveringReducer,
   orderListCancel:listOrderCancelReducer,
-  getReviewsProduct:getReviewsReducer
+  getReviewsProduct:getReviewsReducer,
+  addReviewProduct: addReviewReducer
 })
 
 //login

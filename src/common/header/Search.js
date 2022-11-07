@@ -177,7 +177,6 @@ const Search = () => {
                       <Dropdown.Item key="settings" withDivider>
                         <Link to="/profile">Thông tin cá nhân</Link>
                       </Dropdown.Item>
-
                       <Dropdown.Item key="logout" color="error" withDivider>
                         <Link to="#" onClick={logoutHander}>
                           Đăng xuất

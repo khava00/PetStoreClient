@@ -38,7 +38,10 @@ import {
     SEARCH_PRODUCT_LIST_FAIL,
     PRODUCT_GET_REVIEW_REQUEST,
     PRODUCT_GET_REVIEW_SUCCESS,
-    PRODUCT_GET_REVIEW_FAIL
+    PRODUCT_GET_REVIEW_FAIL,
+    PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS,
+    PRODUCT_CREATE_REVIEW_FAIL
 } from "../Constants/ProductConstants"
 
 //productlist
@@ -149,6 +152,20 @@ export const getReviewsReducer = (state = {},action) =>{
             return state;
     }
 }
+//add review product
+export const addReviewReducer = (state = {review:[]},action) =>{
+    switch (action.type) {
+        case PRODUCT_CREATE_REVIEW_REQUEST:
+            return{...state,loading:true,review:[]}
+        case PRODUCT_CREATE_REVIEW_SUCCESS:       
+            return  {...state, loading: false, review: action.payload} 
+            case PRODUCT_CREATE_REVIEW_FAIL:
+                return {...state, loading: false, review: action.payload}    
+        default:
+            return state;
+    }
+}
+
 // list category
 export const categoryListReducer = (state = {},action) =>{
     switch (action.type) {

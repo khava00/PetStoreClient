@@ -42,6 +42,9 @@ import {
     PRODUCT_GET_REVIEW_REQUEST,
     PRODUCT_GET_REVIEW_SUCCESS,
     PRODUCT_GET_REVIEW_FAIL,
+    PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS,
+    PRODUCT_CREATE_REVIEW_FAIL,
     // ADD_REMARK_REQUEST,
     // ADD_REMARK_SUCCESS,
     // ADD_REMARK_FAIL,
@@ -128,7 +131,6 @@ export const getReviewsProduct = (id,pageNumber,pageSize)=> async(dispatch,getSt
         dispatch({type: PRODUCT_GET_REVIEW_SUCCESS, payload: res.data.data })
         
     } catch (error) {
-        console.log(error)
         dispatch({
             type: PRODUCT_GET_REVIEW_FAIL,
             payload: error.response.message
@@ -136,7 +138,26 @@ export const getReviewsProduct = (id,pageNumber,pageSize)=> async(dispatch,getSt
     }
     
 }
+//addReview
+export const addReviewProduct = (productId,remark,rate)=> async(dispatch,getState) =>{
 
+    try {
+        dispatch({type:PRODUCT_CREATE_REVIEW_REQUEST})
+        const res = await axiosClient.post(`/product/remark`,{productId,remark,rate})
+        dispatch({type: PRODUCT_CREATE_REVIEW_SUCCESS, payload: res.data.data })
+        toast.success("Đã bình luận")
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000)
+        
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_FAIL,
+            payload: error.errorMessage
+        })
+    }
+   
+}
 // search product
 export const listProductSuggest = (text, pageNumber, pageSize) => async(dispatch) =>{
     try {

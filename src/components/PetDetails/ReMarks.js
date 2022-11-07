@@ -1,20 +1,31 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useMemo} from 'react'
 import "./PetDetails.css"
 import {BiCommentCheck} from "react-icons/bi"
 import { Card, Grid, Pagination, Text} from "@nextui-org/react";
 import Rating from "react-rating";
-import { getReviewsProduct } from '../redux/Actions/ProductActions';
+import { addReviewProduct, getReviewsProduct } from '../redux/Actions/ProductActions';
 import {useSelector,useDispatch} from 'react-redux';
 import { useParams } from 'react-router-dom';
+import LoginReview from './LoginReview';
+import toast from 'react-hot-toast';
+
 const ReMarks = () => {
     const { id } = useParams();
     const dispatch= useDispatch()
     const getReviews = useSelector((state)=>state.getReviewsProduct)
     const [ pageNumber, setPageNumber ] = useState(1);
+    const [rate,setRate] = useState(0)
+    const [remark,setRemark] =useState("")
+    const userLogin = useSelector((state) => state.userLogin);
+    const {user} = userLogin
     useEffect(()=>{
         dispatch(getReviewsProduct(id,pageNumber,2))
     },[dispatch,pageNumber,id])
     console.log(id)
+    const handleAddReviewProduct = (e) =>{
+        {rate===0?toast.error("Vui lòng để lại đánh giá"):dispatch(addReviewProduct(id,remark,rate))}
+    }
+   
   return (
     <section className='remarks container'>
         <div className='reviews  f_flex'>
@@ -22,21 +33,28 @@ const ReMarks = () => {
             <h1>Đánh giá</h1>
         </div>
         <div className='box-comment'>
-            <div className='box-rating-comment'>
-                <Rating
-                    className='rating-comment'
-                    emptySymbol="fa-regular fa-star"
-                    fullSymbol="fa-solid fa-star"  
-                />
-            </div>
-            <br/>
-            <div className='box-textarea-comment'>
-                <textarea className='textarea-comment' >
-                    bbd
-                </textarea>
-            </div>
-            <br/>
-            <button  type="button" className='btn-comment' >Bình luận</button>
+            {user === null ? (
+               <LoginReview/>
+            ):(
+                <>
+                    <div className='box-rating-comment'>
+                        <Rating
+                            className='rating-comment'
+                            emptySymbol="fa-regular fa-star"
+                            fullSymbol="fa-solid fa-star" 
+                            onChange={(e) => setRate(e)}
+                            initialRating={rate}
+                        />
+                    </div>
+                    <br/>
+                    <div className='box-textarea-comment'>
+                        <textarea style={{resize:"none"}} className='textarea-comment'value={remark} onChange={(e)=>setRemark(e.target.value)}  />
+                    </div>
+                    <br/>
+                    <button  type="button" className='btn-comment' onClick={(e)=>handleAddReviewProduct(e)} >Bình luận</button>
+                </>
+            )}
+            
         </div>
         <div className='box-reviews'>
             {getReviews.reviews?.content.length===0? <h1>Chưa có bình luận</h1>:
@@ -90,8 +108,6 @@ const ReMarks = () => {
                     }              
 
         </div>
-
-
     </section>
   )
 }
