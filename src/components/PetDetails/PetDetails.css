@@ -1,16 +1,18 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
 .box-details{
       display: flex;
       margin-right: auto;
       margin-left: auto;
       padding-right: 35px;
       padding-left: 35px;
+      
 }
 .box-details 
 .single-img{
     max-width: 100%;
 }
-.pdetails .single-img .big-img {
-    width: 50%;
+.pdetails{
+    width: 100%;
 }
 
 .small-img-col .small-img{
@@ -24,17 +26,16 @@
 }
 
 .box-img-detail{
-    max-width: 50%;
     margin-top: 20px;
+    padding: 15px;
 }
 .img-related{
     width: 100%;
     height: 250px;
 }
 .pdetails .single-detail{
-    margin-left: -20%;
     line-height: 65px;
-
+    padding: 15px;
 }
 .pdetails .single-detail h1{
   color: #e94560;

@@ -7,6 +7,8 @@ import { addReviewProduct, getReviewsProduct } from '../redux/Actions/ProductAct
 import {useSelector,useDispatch} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import LoginReview from './LoginReview';
+import  Moment from "react-moment"
+import 'moment/locale/vi';
 import toast from 'react-hot-toast';
 
 const ReMarks = () => {
@@ -21,7 +23,6 @@ const ReMarks = () => {
     useEffect(()=>{
         dispatch(getReviewsProduct(id,pageNumber,2))
     },[dispatch,pageNumber,id])
-    console.log(id)
     const handleAddReviewProduct = (e) =>{
         {rate===0?toast.error("Vui lòng để lại đánh giá"):dispatch(addReviewProduct(id,remark,rate))}
     }
@@ -88,6 +89,13 @@ const ReMarks = () => {
                                         initialRating={review.rate}
                                         readonly
                                     />
+                                </Grid>
+                                </Grid.Container>
+                                <Grid.Container css={{ pl: "$6" }}>
+                                <Grid xs={12}>
+                                    <Text p css={{ lineHeight: "$xs" }}>
+                                        <Moment fromNow locale='vi'>{review.date}</Moment>
+                                    </Text>
                                 </Grid>
                                 </Grid.Container>
                             </Card.Header>

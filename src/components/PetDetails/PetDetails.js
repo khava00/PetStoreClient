@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FacebookIcon, FacebookShareButton } from 'react-share'
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { addWishListProductPage} from "../redux/Actions/ProductActions";
+import ImageGallery from 'react-image-gallery';
 import React from 'react';
 
 const PetDetails = () => {
@@ -33,29 +34,32 @@ const PetDetails = () => {
 
   }
   const { categories } = useSelector((state) => state.categoryList);
-  
+  const getStaticImage = () =>{
+    let images = [];
+    for (let i = 1; i < product.imagePath?.length; i++) {
+      images.push({
+        original: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===i)} `,
+        thumbnail: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===i)} `,
+        originalWidth:"250px",
+        originalHeight:"380px",
+      });
+    }
+
+    return images;
+  }
+  const images = [
+    {
+      original: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===0)} `,
+      thumbnail: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===0)} `,
+      originalWidth:"250px",
+      originalHeight:"380px",
+      
+    }
+  ].concat(getStaticImage());
   const shareUrl = `${process.env.REACT_APP_CLIENT_ENDPOINT}/product/${convertURL(product?.name)}-${product.id}`;
-    // useEffect(()=>{
-    //   if(product!==undefined){
-    //     document.querySelector('meta[property="og:url"]').content = shareUrl;
-    //     document.querySelector('meta[property="og:title"]').content = product.name;
-    //     document.querySelector('meta[property="og:description"]').content = product.description;
-    //     document.querySelector('meta[property="og:image"]').content = process.env.REACT_APP_API_ENDPOINT + product.imagePath?.find((value,index)=>index===0); 
-    //   }
-    // },[product])
+    
   return (
     <div className='box-details container'>
-        {/* <Helmet>
-          <title>{product.name}</title>
-          <meta property="og:type" content="website"/>
-          <meta property="og:image" content={`${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===0)} `}/>
-          <meta property="og:image:width" content="520" />
-          <meta property="og:image:height" content="220" />
-          <meta property="og:title" content={product.name}/>
-          <meta property="og:url" content={shareUrl}/>
-          <meta property="og:description" content={product.description}/>
-        </Helmet> */}
-       
       { (loading === undefined || loading === true) ? (
             <div className="mb-5 "><Loading/></div>
         ) : (
@@ -70,16 +74,7 @@ const PetDetails = () => {
         </div>
             <section className='pdetails container mtop heading f_flex'>
               <div className='box-img-detail'>
-                <div className='single-img'  >
-                  <img className='big-img' src={`${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===0)} `} alt=''/>
-                    <div className='small-img-group f_flex '>
-                      {product.imagePath?.map((image) => (
-                        <div className='small-img-col '>
-                          <img className='small-img' src={`${process.env.REACT_APP_API_ENDPOINT}${image} `}   alt=''/>
-                        </div>
-                      ))}
-                    </div>
-                </div>
+                <ImageGallery showNav={false} showFullscreenButton={false} showPlayButton={false} items={images} />
               </div>
                 <div className='single-detail'>
                   <h1>{product?.name==null ? '-':product.name}</h1>
