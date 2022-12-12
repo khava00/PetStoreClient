@@ -199,3 +199,8 @@
 .rating-reviews{
     color: #ffcd4e!important;
 }
+/* css image detail */
+.image-gallery-slide .image-gallery-image{
+    width: 350px!important; 
+    object-fit:cover !important;
+}

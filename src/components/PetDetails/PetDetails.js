@@ -40,8 +40,10 @@ const PetDetails = () => {
       images.push({
         original: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===i)} `,
         thumbnail: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===i)} `,
-        originalWidth:"250px",
+        originalWidth:"250px" ,
         originalHeight:"380px",
+        thumbnailWidth:"100px",
+        thumbnailHeight:"100px"
       });
     }
 
@@ -53,6 +55,8 @@ const PetDetails = () => {
       thumbnail: `${process.env.REACT_APP_API_ENDPOINT}${product.imagePath?.find((value,index)=>index===0)} `,
       originalWidth:"250px",
       originalHeight:"380px",
+      thumbnailWidth:"100px",
+      thumbnailHeight:"100px"
       
     }
   ].concat(getStaticImage());
