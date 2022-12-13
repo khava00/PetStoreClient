@@ -39,6 +39,7 @@ export const checkout = ( order, orderItems) => async (dispatch) => {
      dispatch({ type: CHECKOUT_SUCCESS, payload: response.data.data });
      toast.success("Đặt hàng thành công");
   } catch (error) {
+    console.log(error)
     dispatch({ type: CHECKOUT_FAIL, payload: error.response });
   }
 }

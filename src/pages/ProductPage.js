@@ -9,8 +9,6 @@ import {
 import { Pagination } from "@nextui-org/react";
 import {FaThLarge} from 'react-icons/fa';
 import {GoThreeBars} from 'react-icons/go';
-import { Helmet } from "react-helmet";
-
 export const ProductPage = () => {
   const { categories } = useSelector((state) => state.categoryList);
   const productList = useSelector((state) => state.productListPage);
@@ -33,10 +31,6 @@ export const ProductPage = () => {
   };
   return (
     <>
-      <Helmet>
-        <title>Danh mục thú cưng</title>
-        <meta name="description" content="Khám phá danh mục thú cưng để tìm ra thú cưng yêu thích của bạn" />
-      </Helmet>
       <div class="product-page mtop">
         <div class="product-category">
           <h3 class="title">Danh mục sản phẩm</h3>
@@ -56,12 +50,11 @@ export const ProductPage = () => {
               </div>
           </div>
           <div class={toggleState===2 ? "product-list-list":"product-list"} > 
-          {keyword &&searchList.products?.content.length===0 ?  <span className="search-result">Không có kết quả</span>:  <ProductList productList={keyword? searchList.products?.content : productList?.products?.content }/>}
-           
-           
+            {keyword &&searchList.products?.content.length===0 ?  <span className="search-result">Không có kết quả</span>:  <ProductList productList={keyword? searchList.products?.content : productList?.products?.content }/>}
           </div>
-          </div>
+        </div>
       </div>
+      <br/>
       <div className="pagination">
         {keyword&&searchList.products?.content.length===0?<></>:keyword?<Pagination shadow animated={false} total={searchList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />:
         <Pagination shadow animated={false} total={productList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />}

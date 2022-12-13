@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FacebookIcon, FacebookShareButton } from 'react-share'
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { addWishListProductPage} from "../redux/Actions/ProductActions";
+import Rating from "react-rating";
 import ImageGallery from 'react-image-gallery';
 import React from 'react';
 
@@ -81,7 +82,8 @@ const PetDetails = () => {
                 <ImageGallery showNav={false} showFullscreenButton={false} showPlayButton={false} items={images} />
               </div>
                 <div className='single-detail'>
-                  <h1>{product?.name==null ? '-':product.name}</h1>
+                  <h1>{product?.name==null ? '-':product.name}</h1> 
+                  {product.rate == null? <span>Chưa có đánh giá</span>:product.rate}
                   <h2>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</h2>
                   {product?.age !== null && <h3>Tuổi: <span>  {product.age}</span> tháng tuổi</h3> }
                   {/* {product?.gender !== null && <h3>Giới tính: <span> {product?.gender ===  false? 'Đực' : 'Cái'}</span> </h3> } */}

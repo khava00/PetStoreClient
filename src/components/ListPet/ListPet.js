@@ -25,6 +25,7 @@ const ListPet = () => {
             <div className='product-content  grid1'>
               <TitleListPet />
             </div>
+            <br/>
           </div>
           <div className='contentWidth'>
             <div className='heading d_flex'>
