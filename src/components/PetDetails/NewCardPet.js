@@ -7,6 +7,7 @@ import { listProduct } from "../redux/Actions/ProductActions"
 import { Link, useParams } from "react-router-dom"
 import Loading from "../LoadingError/Loading"
 import { addToCart } from "../redux/Actions/CartActions"
+import Rating from "react-rating";
 import toast from "react-hot-toast"
 
 const SampleNextArrow = (props) => {
@@ -113,11 +114,19 @@ const SampleNextArrow = (props) => {
                       <div className='product-details'>
                         <Link to = {`/product/${productItems.id}`}><h3>{productItems.name}</h3></Link>
                         <div className='rate'>
-                          <i className='fa fa-star'></i>
-                          <i className='fa fa-star'></i>
-                          <i className='fa fa-star'></i>
-                          <i className='fa fa-star'></i>
-                          <i className='fa fa-star'></i>
+                          {productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
+                            (
+                              <>
+                                <Rating
+                                  className='rating-reviews-detail'
+                                  emptySymbol="fa-regular fa-star"
+                                  fullSymbol="fa-solid fa-star" 
+                                  readonly
+                                  initialRating={productItems.rate}
+                                />
+                              </>
+                            )
+                          }
                         </div>
                         <div className='price'>
                           <h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)} </h4>

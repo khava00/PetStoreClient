@@ -7,7 +7,6 @@ import Loading from '../LoadingError/Loading'
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast';
 import Accordion from "../Accordion/Accordion";
-import { Helmet } from 'react-helmet';
 import { FacebookIcon, FacebookShareButton } from 'react-share'
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { addWishListProductPage} from "../redux/Actions/ProductActions";
@@ -21,6 +20,7 @@ const PetDetails = () => {
   const { id } = useParams();
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product } = productDetails;
+  const getReviews = useSelector((state)=>state.getReviewsProduct)
   const handleAddWishList = (id) => {
 		dispatch(addWishListProductPage(id))
 	}
@@ -62,7 +62,7 @@ const PetDetails = () => {
     }
   ].concat(getStaticImage());
   const shareUrl = `${process.env.REACT_APP_CLIENT_ENDPOINT}/product/${convertURL(product?.name)}-${product.id}`;
-    
+  const [rate,setRate] = useState(0)
   return (
     <div className='box-details container'>
       { (loading === undefined || loading === true) ? (
@@ -83,7 +83,21 @@ const PetDetails = () => {
               </div>
                 <div className='single-detail'>
                   <h1>{product?.name==null ? '-':product.name}</h1> 
-                  {product.rate == null? <span>Chưa có đánh giá</span>:product.rate}
+                  {product.rate == null? <span>Chưa có đánh giá</span>:
+                    <>
+                      <div className='box-rating-detail f_flex'>
+                        <p className='rate-number'>{product.rate}/5 </p>
+                        <Rating
+                            className='rating-reviews-detail'
+                            emptySymbol="fa-regular fa-star"
+                            fullSymbol="fa-solid fa-star" 
+                            readonly
+                            initialRating={product.rate}
+                        />
+                        <p className='rate-number-lenght'>({getReviews.reviews?.content.length} lượt đánh giá)</p>
+                    </div>
+                    </>
+                  }
                   <h2>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</h2>
                   {product?.age !== null && <h3>Tuổi: <span>  {product.age}</span> tháng tuổi</h3> }
                   {/* {product?.gender !== null && <h3>Giới tính: <span> {product?.gender ===  false? 'Đực' : 'Cái'}</span> </h3> } */}

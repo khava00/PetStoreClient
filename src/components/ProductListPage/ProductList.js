@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/Actions/CartActions";
 import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-
+import Rating from "react-rating";
 import "./style.css"
 
 export const ProductList = ({ productList, name }) => {
@@ -63,12 +63,19 @@ export const ProductList = ({ productList, name }) => {
 							<div className="product-details">
 								<h3 className="name-product" onClick={() => navigate(`/product/${productItems.id}`)}>{productItems.name}</h3>
 								<div className='rate'>
-									{productItems.rate === null ? <span className="rated">Chưa có đánh giá </span> : (<> {[...Array(productItems.rate)].map((star) => {
-										return (
-											<i className="fa fa-star"></i>
-										);
-									})}
-									</>)}
+										{productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
+											(
+											<>
+												<Rating
+												className='rating-reviews-detail'
+												emptySymbol="fa-regular fa-star"
+												fullSymbol="fa-solid fa-star" 
+												readonly
+												initialRating={productItems.rate}
+												/>
+											</>
+											)
+										}
 								</div>
 								<div className="price">
 									<h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)} </h4>

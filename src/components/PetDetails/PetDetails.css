@@ -175,7 +175,38 @@
     border-radius: 2%;
     font-size: 20px;
 }
-
+.rate .fa-solid{
+    color: #ffcd4e!important;
+    font-size: 15px;
+}
+.rate .fa-regular{
+    color: #ffcd4e!important;
+    font-size: 15px;
+}
+  
+.box-rating-detail .rating-reviews-detail{
+    padding-left: 5px;
+}
+.box-rating-detail .rate-number-lenght{
+    padding-left: 5px;
+    font-style: italic;
+}
+.box-rating-detail .rate-number{
+    color: #ffcd4e;
+    font-weight: bold;
+    font-size: 25px;
+    text-decoration-line:underline;
+    font-style: italic;
+}
+.box-rating-detail .fa-solid{
+    color: #ffcd4e!important;
+    font-size: 20px;
+}
+.box-rating-detail .fa-regular{
+    color: #ffcd4e!important;
+    font-size: 20px;
+}
+  
 .box-rating-comment .fa-solid{
     color: #ffcd4e!important;
     font-size: 25px;

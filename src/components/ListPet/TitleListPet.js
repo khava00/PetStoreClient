@@ -5,9 +5,8 @@ import { Link } from "react-router-dom"
 import { listProduct } from "../redux/Actions/ProductActions"
 import { useDispatch,useSelector } from "react-redux"
 import { addToCart } from "../redux/Actions/CartActions"
-import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
-
+import { addWishListProductPage} from "../redux/Actions/ProductActions";
+import Rating from "react-rating";
 import toast from "react-hot-toast"
 
   const TitleListPet = () => {
@@ -63,12 +62,19 @@ import toast from "react-hot-toast"
                   <div className='product-details'>
                   <Link  to = {`/product/${covertURL(productItems.name)}-${productItems.id}`}><h3>{productItems.name}</h3></Link>
                   <div className='rate'>
-                      {productItems.rate=== null ? <span className="rated">Chưa có đánh giá </span>: (<> {[...Array(productItems.rate)].map((star) => {        
-                          return (         
-                            <i className="fa fa-star"></i>        
-                          );
-                        })}
-                      </>)}
+                    {productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
+                        (
+                        <>
+                          <Rating
+                          className='rating-reviews-detail'
+                          emptySymbol="fa-regular fa-star"
+                          fullSymbol="fa-solid fa-star" 
+                          readonly
+                          initialRating={productItems.rate}
+                          />
+                        </>
+                        )
+                      }
                     </div>
                     <div className='price'>
                       <h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)}</h4>
