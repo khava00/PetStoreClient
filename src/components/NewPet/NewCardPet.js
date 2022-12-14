@@ -7,8 +7,8 @@ import { useDispatch,useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { addToCart } from "../redux/Actions/CartActions"
 import toast from 'react-hot-toast';
-import { BsHeart, BsHeartFill } from "react-icons/bs";
-import { addWishListProductPage, WishListProductPage } from "../redux/Actions/ProductActions";
+import { addWishListProductPage} from "../redux/Actions/ProductActions";
+import Rating from "react-rating";
 const SampleNextArrow = (props) => {
     const { onClick } = props
     return (
@@ -94,12 +94,19 @@ const SampleNextArrow = (props) => {
                     </Link>
                     
                     <div className='rate'>
-                      {productItems.rate=== null ? <span className="rated">Chưa có đánh giá </span>: (<> {[...Array(productItems.rate)].map((star) => {        
-                          return (         
-                            <i className="fa fa-star"></i>        
-                          );
-                        })}
-                      </>)}
+                    {productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
+                        (
+                        <>
+                          <Rating
+                          className='rating-reviews-detail'
+                          emptySymbol="fa-regular fa-star"
+                          fullSymbol="fa-solid fa-star" 
+                          readonly
+                          initialRating={productItems.rate}
+                          />
+                        </>
+                        )
+                      }
                     </div>
                     <div className='price'>
                       <h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)}</h4>

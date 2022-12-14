@@ -1,4 +1,5 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
+
 .box-details{
       display: flex;
       margin-right: auto;
@@ -33,8 +34,19 @@
     width: 100%;
     height: 250px;
 }
+.pdetails .box-description-product span{
+    font-family: 'SF Mono', sans-serif;
+}
+.pdetails .box-description-product .description{
+    line-height: 30px !important;
+    text-align: justify;
+    width: 350px;
+    padding-top: 5px;
+    font-weight:600;
+    font-family: 'SF Mono', sans-serif;
+}
 .pdetails .single-detail{
-    line-height: 65px;
+    line-height: 40px;
     padding: 15px;
 }
 .pdetails .single-detail h1{
@@ -139,9 +151,9 @@
 }
 .amount{
     display: inline-flex; 
+    width: 450px;
 }
 .amount-box {
-    margin-top: 15px;
     height: 100%;
     margin-left: 5px;
 }
@@ -149,7 +161,6 @@
     margin-left: 5px;
 }
 .box-share{
-    margin-top: 10px;
     margin-left: 10px;
 }
 

@@ -99,11 +99,11 @@ const PetDetails = () => {
                     </>
                   }
                   <h2>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</h2>
-                  {product?.age !== null && <h3>Tuổi: <span>  {product.age}</span> tháng tuổi</h3> }
+                  {product?.age !== null && <span className='box-description-product f_flex'> <h3>Tuổi: &nbsp;</h3> <span>  {product.age} tháng tuổi </span> </span>}
                   {/* {product?.gender !== null && <h3>Giới tính: <span> {product?.gender ===  false? 'Đực' : 'Cái'}</span> </h3> } */}
-                  {product.origins.length > 0 && <h3>Xuất xứ: <span>{product?.origins.map(origin => origin.name).join(', ')}</span> </h3>}
-                  {product.breed !== null && <h3>Chủng loại: <span>{product.breed.name}</span>  </h3>}
-                  {product.description !== null && <h3 className='description-product'>Mô tả: <span>{product.description}</span>  </h3>}
+                  {product.origins.length > 0 && <span className='box-description-product f_flex'> <h3>Xuất xứ:  &nbsp;</h3> <span>{product?.origins.map(origin => origin.name).join(', ')}</span></span>}
+                  {product.breed !== null && <span className='box-description-product f_flex'><h3>Chủng loại:  &nbsp; </h3><span>{product.breed.name}</span></span>}
+                  {product.description !== null && <span className='box-description-product f_flex'><h3 className='description-product'>Mô tả: &nbsp;</h3> <span className='description'>{product.description}</span></span>}
                   
                   <div className='amount'>
                     {product.amountInStock > 0 ? (

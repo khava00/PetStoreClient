@@ -60,7 +60,7 @@ import toast from "react-hot-toast"
                     </div>
                   </div>
                   <div className='product-details'>
-                  <Link  to = {`/product/${covertURL(productItems.name)}-${productItems.id}`}><h3>{productItems.name}</h3></Link>
+                  <Link  to = {`/product/${productItems.id}`}><h3>{productItems.name}</h3></Link>
                   <div className='rate'>
                     {productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
                         (
@@ -81,18 +81,18 @@ import toast from "react-hot-toast"
                       {/* step : 3  
                        if hami le button ma click garryo bahne 
                       */}
-                      {productItems.amountInStockInStock>0 ? 
-                      (<>
-                          <button onClick={()=>dispatch(addToCart(productItems.id,1))}>
-                            <i className='fa fa-plus'></i>
-                          </button>
-                      </>)
-                      :
-                      (<>
-                           <button onClick={()=>toast.error("Sản phẩm đã hết hàng")}>
-                            <i className='fa fa-plus'></i>
-                          </button>
-                      </>)}
+                       {productItems.amountInStock > 0 ?
+                    (<>
+                      <button onClick={() => dispatch(addToCart(productItems.id, 1))}>
+                        <i className='fa fa-plus'></i>
+                      </button>
+                    </>)
+                    :
+                    (<>
+                      <button onClick={() => toast.error("Sản phẩm đã hết hàng")}>
+                        <i className='fa fa-plus'></i>
+                      </button>
+                    </>)}
                     </div>
                   </div>
                 </div>
