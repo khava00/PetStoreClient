@@ -28,11 +28,15 @@
 
 .box-img-detail{
     margin-top: 20px;
-    padding: 15px;
+    padding: 5px;
 }
 .img-related{
     width: 100%;
     height: 250px;
+}
+
+.single-detail span{
+    font-family: 'SF Mono', sans-serif;
 }
 .pdetails .box-description-product span{
     font-family: 'SF Mono', sans-serif;
@@ -42,7 +46,6 @@
     text-align: justify;
     width: 350px;
     padding-top: 5px;
-    font-weight:600;
     font-family: 'SF Mono', sans-serif;
 }
 .pdetails .single-detail{
