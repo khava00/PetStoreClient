@@ -83,7 +83,7 @@ const PetDetails = () => {
               </div>
                 <div className='single-detail'>
                   <h1>{product?.name==null ? '-':product.name}</h1> 
-                  {product.rate == null? <span>Chưa có đánh giá</span>:
+                  {product.rate == null? <span className='rate-null'>Chưa có đánh giá</span>:
                     <>
                       <div className='box-rating-detail f_flex'>
                         <p className='rate-number'>{product.rate}/5 </p>
