@@ -53,7 +53,7 @@ const CheckoutForm = () => {
     return value?.match(/^[0-9]{10,15}$/i);
   };
   const validateAddress = (value) => {
-    return value.match(/^[A-Z0-9._ %+-]{10,250}$/i);
+    return value.match(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ \s\W|_]{10,250}$/i);
   };
 
   const helperReceiver = useMemo(()=>{
