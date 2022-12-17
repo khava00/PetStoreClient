@@ -128,7 +128,7 @@ const UserDetail = () => {
     setLastNameToched(true);
     setPhoneToched(true);
     if (
-      helperEmail.text === "" &&
+      helperEmail.text ==="" &&
       helperFirstName.text === "" &&
       helperLastName.text === "" &&
       helperPhone.text === ""

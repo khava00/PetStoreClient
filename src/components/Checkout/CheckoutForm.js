@@ -114,7 +114,8 @@ const CheckoutForm = () => {
     setReceiverTouched(true);
     
     
-    if (helperAddress.text ==="" && helperPhone.text ==="" && helperReceiver.text ==="" && receiverTouched && phoneTouched && addressTouched){      
+    if (helperAddress.text ==false && helperPhone.text ==false && helperReceiver.text ==false && receiverTouched && phoneTouched && addressTouched){ 
+      console.log(helperAddress.text)   
       dispatch(checkout({
         "orderStatusId": 1,
         "PaymentId": paymentMethod === "Paypal" ? 1 : 2,
@@ -127,6 +128,7 @@ const CheckoutForm = () => {
       ));
     }
     else{ 
+      console.log(helperAddress.text)
       toast.error("Vui lòng điền thông tin chính xác")
     } 
   };
