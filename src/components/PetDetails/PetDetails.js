@@ -61,7 +61,7 @@ const PetDetails = () => {
       
     }
   ].concat(getStaticImage());
-  const shareUrl = `${process.env.REACT_APP_CLIENT_ENDPOINT}/product/${convertURL(product?.name)}-${product.id}`;
+  const shareUrl = `${process.env.REACT_APP_CLIENT_ENDPOINT}/product/${product.id}`;
   const [rate,setRate] = useState(0)
   return (
     <div className='box-details container'>
