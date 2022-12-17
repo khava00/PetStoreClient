@@ -10,4 +10,12 @@
 }
 .name-product{
   cursor: pointer;
+  font-family: 'SF Mono';
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-transform: uppercase;
+}
+
+.name-product:hover{
+  color: #e94560;
 }

@@ -94,7 +94,7 @@ const PetDetails = () => {
                             readonly
                             initialRating={product.rate}
                         />
-                        <p className='rate-number-lenght'>({getReviews.reviews?.content.length} lượt đánh giá)</p>
+                        <p className='rate-number-lenght'>({getReviews.reviews?.pageInfo.totalElements} lượt đánh giá)</p>
                     </div>
                     </>
                   }
@@ -124,7 +124,7 @@ const PetDetails = () => {
                               </FacebookShareButton>
                               </div>
                               <div className='box-like'>
-                                {product.favourite ? <BsHeartFill style={{fontSize:"30px",color:"#e94560"}} onClick={()=>handleAddWishList(product.id)} /> :<BsHeart style={{fontSize:"30px",color:"#e94560"}} onClick={()=>handleAddWishList(product.id)}/> }
+                                {product.favourite ? <BsHeartFill style={{fontSize:"30px",color:"#e94560",cursor:"pointer"}} onClick={()=>handleAddWishList(product.id)} /> :<BsHeart style={{fontSize:"30px",color:"#e94560",cursor:"pointer"}} onClick={()=>handleAddWishList(product.id)}/> }
                               </div>
                           </div>
                           

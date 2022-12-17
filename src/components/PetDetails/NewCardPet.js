@@ -112,7 +112,7 @@ const SampleNextArrow = (props) => {
                         <img className="img-related" src={`${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
                       </div>
                       <div className='product-details'>
-                        <Link to = {`/product/${productItems.id}`}><h3>{productItems.name}</h3></Link>
+                        <Link to = {`/product/${productItems.id}`}><h3 className="name-product">{productItems.name}</h3></Link>
                         <div className='rate'>
                           {productItems.rate == null? <span className="rated">Chưa có đánh giá</span>:
                             (
