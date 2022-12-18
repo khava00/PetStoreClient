@@ -48,17 +48,11 @@ const userFromLocalStorage = typeof window !== 'undefined' && localStorage.getIt
 const cartItemsFromLocalStorage = typeof window !== 'undefined'&& localStorage.getItem("cartItems")
 ? JSON.parse(localStorage.getItem("cartItems"))
 : [];
-//wishlist
-const wishListFromLocalStorage = typeof window !== 'undefined' && localStorage.getItem("products")
-? JSON.parse(localStorage.getItem("products"))
-: [];
+
 const initialState = {
   userLogin:{user: userFromLocalStorage},
   cart: {
     cartItems: cartItemsFromLocalStorage,
-  },
-  wishList:{
-    products: wishListFromLocalStorage
   }
 }
 const middleware = [thunk];
@@ -73,8 +67,4 @@ store.subscribe(() => {
   localStorage.setItem('cartItems', JSON.stringify(store.getState().cart.cartItems));
 },1000);
 
-store.subscribe(() => {
-  localStorage.setItem('products', JSON.stringify(store.getState().wishList.products));
-  
-},50);
 export default store
