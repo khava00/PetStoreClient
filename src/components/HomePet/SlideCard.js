@@ -28,8 +28,8 @@ const SlideCard = () => {
                 <div className='left'>
                   <h1>{value.title}</h1>
                   <p>{value.desc}</p>
-                  {value.id===1 ?  <button style={{cursor:"pointer"}} className='btn-primary' onClick={() => navigate(`/pages`)}>Visit Collections</button> :
-                    <button style={{cursor:"pointer"}} className='btn-primary' onClick={() => navigate(`/product/${convertURL(value.title)}-${value.id}`)}>Visit Collections</button>}
+                  {value.id===1 ?  <button style={{cursor:"pointer"}} className='btn-primary' onClick={() => navigate(`/pages`)}>Ghé thăm</button> :
+                    <button style={{cursor:"pointer"}} className='btn-primary' onClick={() => navigate(`/product/${value.id}`)}>Ghé thăm</button>}
                 
                 </div>
                 <div className='right'>

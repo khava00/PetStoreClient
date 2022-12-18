@@ -19,7 +19,7 @@ const Categories = () => {
               return (
                 <div className='box f_flex' key={index.id}>
 
-                  <span onClick={()=> navigate(`/pages/${category.id}`)}>{category.name}</span>
+                  <span className="category-name" onClick={()=> navigate(`/pages/${category.id}`)}>{category.name}</span>
                 </div>
               )
             })}

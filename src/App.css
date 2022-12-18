@@ -495,9 +495,15 @@ button {
 .search-result{
   color: grey;
   font-size:30px;
+  font-family: 'SF Mono',sans-serif;
 }
 .box-button-cart .btn-add-to-cart-disabled{
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #666666;
+}
+.title-name{
+  font-family: 'SF Mono',sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
 }

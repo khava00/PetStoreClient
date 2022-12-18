@@ -27,5 +27,9 @@
     left: 0;
     margin: auto;
   }
- 
-  
+ .home .category-name{
+  font-family: 'SF Mono',sans-serif;
+ }
+ .home .category-name:hover{
+  color: #e94560;
+ }

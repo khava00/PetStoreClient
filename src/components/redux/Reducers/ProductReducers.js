@@ -129,12 +129,12 @@ export const productDetailsReducer = (state = {product:{}},action) =>{
 export const productListSuggestReducer = (state = {},action) =>{
     switch (action.type) {
         case PRODUCT_LIST_SUGGESTION_REQUEST:
-            return {...state, loading: true}
+            return {...state, loadingListSuggest: true}
         case PRODUCT_LIST_SUGGESTION_SUCCESS:
             const item = action.payload.content?.length
-            return {loading: false, products: action.payload}
+            return {loadingListSuggest: false, products: action.payload}
         case PRODUCT_LIST_SUGGESTION_FAIL:
-            return {loading: false, error: action.payload}
+            return {loadingListSuggest: false, error: action.payload}
         default:
             return state;
     }
