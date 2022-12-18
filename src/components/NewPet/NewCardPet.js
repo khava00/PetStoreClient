@@ -9,6 +9,7 @@ import { addToCart } from "../redux/Actions/CartActions"
 import toast from 'react-hot-toast';
 import { addWishListProductPage} from "../redux/Actions/ProductActions";
 import Rating from "react-rating";
+import { Loading } from "@nextui-org/react"
 const SampleNextArrow = (props) => {
     const { onClick } = props
     return (
@@ -41,6 +42,7 @@ const SampleNextArrow = (props) => {
     }
   const dispatch = useDispatch();
   const productListNew =useSelector((state)=> state.productListNew)
+  const {loading} = productListNew
   useEffect(()=>{
     dispatch(listProduct("cat",1,8))
   },[dispatch])
@@ -77,6 +79,10 @@ const SampleNextArrow = (props) => {
   }
     return (
       <>
+         {(loading === undefined || loading === true) ? (
+        <div className="loading-home container"><Loading /></div>
+      ) : (
+        <>
         <Slider {...settings}>
           {productListNew.productsNew?.map((productItems) => {
             return (
@@ -84,9 +90,10 @@ const SampleNextArrow = (props) => {
                 <div className='product mtop'>
                   <div className='img'>
                     <span className='discount'>New</span>
-                    <div className="box-img-product">
                       <img className="img-product"  src= { `${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' /> 
-                    </div>
+                      <div className='product-like'>
+                        {/* {productItems.favourite===true ?<BsHeartFill onClick={()=>handleAddWishList(productItems.id)}/>: <BsHeart onClick={()=>handleAddWishList(productItems.id)}/>   } */}
+                      </div>
                   </div>
                   <div className='product-details'>
                   <Link  to = {`/product/${productItems.id}`}>
@@ -133,6 +140,9 @@ const SampleNextArrow = (props) => {
           })}
         </Slider>
       </>
+      )}
+      </>
+     
     )
   }
   

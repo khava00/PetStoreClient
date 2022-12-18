@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart, decreaseQuantity, increaseQuantity, removeFromCart } from './../components/redux/Actions/CartActions'
 import { Link, useNavigate } from 'react-router-dom'
+import LoginReview from "../components/PetDetails/LoginReview";
 import toast from 'react-hot-toast';
 
 const CartPage = () => {
@@ -15,7 +16,8 @@ const CartPage = () => {
   const id = params.get('id')
   const [cartItems, setCartItems] = useState([])
   const [active, setActive] = useState([])
-
+  const userLogin = useSelector((state) => state.userLogin);
+  const { user } = userLogin
   useEffect(() => {
     if (id) {
       dispatch(addToCart(id, qty))
@@ -62,9 +64,9 @@ const CartPage = () => {
     dispatch(removeFromCart(id))
   }
   const handleCheckout = () =>{
-    navigate('/checkout')
-  }
-
+      navigate('/checkout')
+   }
+  
   let Total=0
   let TotalQuantity=0
   return (
@@ -159,7 +161,10 @@ const CartPage = () => {
         </tfoot>
           </table>
           <div className="box-button-cart">
-            <button type="button" className='btn-add-to-cart' onClick={()=>handleCheckout()}>Mua hàng</button>
+            {user===null ? <button type="button" className='btn-add-to-cart-disabled' disabled>Vui lòng đăng nhập</button>:
+              <button type="button" className='btn-add-to-cart' onClick={()=>handleCheckout()}>Mua hàng</button>
+            }
+            
             <div className="link-router-cart-value">
               <Link 
               style={{

@@ -10,7 +10,6 @@ export const login = (username,password) => async(dispatch) =>{
         dispatch({type: USER_LOGIN_SUCCESS, payload: res.data.data})
         toast.success("Đăng nhập thành công");
         localStorage.setItem("user",JSON.stringify(res.data.data))
-        window.location.href = "/profile"
         
     } catch (error) {
         console.log(error)

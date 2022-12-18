@@ -16,7 +16,6 @@ import AutoComplete from "react-autocomplete";
 import { toast } from "react-hot-toast";
 
 const CheckoutForm = () => {
-  const [checked, setChecked] = useState(false);
   const [cartItems, setCartItems] = useState(
     JSON.parse(localStorage.getItem("cartItems"))
   );
@@ -26,22 +25,9 @@ const CheckoutForm = () => {
   const [phoneTouched,setPhoneTouched] = useState(false)
   const [address,setAddress] = useState("")
   const [addressTouched,setAddressTouched] = useState(false)
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Paypal");
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [orderItems, setOrderItems] = useState([]);
-  const [provinceShippingName, setProvinceShippingName] = useState("");
-  const [districtShippingName, setDistrictShippingName] = useState("");
-  const [wardShippingName, setWardShippingName] = useState("");
-  const [exactShippingAddress, setExactShippingAddress] = useState("");
-  const [provinceBillingName, setProvinceBillingName] = useState("");
-  const [districtBillingName, setDistrictBillingName] = useState("");
-  const [exactBillingAddress, setExactBillingAddress] = useState("");
-  const [wardBillingName, setWardBillingName] = useState("");
-  const provinces = useSelector((state) => state.provinces);
-  const provinceShipping = useSelector((state) => state.provinceShipping);
-  const districtShipping = useSelector((state) => state.districtShipping);
-  const provinceBilling = useSelector((state) => state.provinceBilling);
-  const districtBilling = useSelector((state) => state.districtBilling);
   const { loading, ordered, error } = useSelector((state) => state.checkout);
   let total = 0;
   let orderItemArrays = [];

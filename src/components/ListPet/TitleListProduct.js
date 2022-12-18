@@ -5,12 +5,14 @@ import { Link } from "react-router-dom"
 import { listProduct } from "../redux/Actions/ProductActions"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../redux/Actions/CartActions"
+import { Loading } from "@nextui-org/react"
 import toast from "react-hot-toast"
 import Rating from "react-rating";
 
 const TitleListProduct = () => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
+  const { loading } = productList
   useEffect(() => {
     dispatch(listProduct("accessory", 1, 8))
   }, [dispatch])
@@ -44,56 +46,63 @@ const TitleListProduct = () => {
   }
   return (
     <>
-      {productList.products?.map((productItems) => {
-        return (
-          <div className='box'>
-            <div className='product mtop'>
-              <div className='img'>
-                <span className='discount'>New</span>
-                <img src={`${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' />
-
-              </div>
-              <div className='product-details'>
-                <Link to={`/product/${productItems.id}`}><h3 className="name-product">{productItems.name}</h3></Link>
-                <div className='rate'>
-                  {productItems.rate == null ? <span className="rated">Chưa có đánh giá</span> :
-                    (
-                      <>
-                        <Rating
-                          className='rating-reviews-detail'
-                          emptySymbol="fa-regular fa-star"
-                          fullSymbol="fa-solid fa-star"
-                          readonly
-                          initialRating={productItems.rate}
-                        />
-                      </>
-                    )
-                  }
+      {(loading === undefined || loading === true) ? (
+        <div className="loading-home container"><Loading /></div>
+      ) : (
+        <>
+          {productList.products?.map((productItems) => {
+            return (
+              <div className='box'>
+                <div className='product mtop'>
+                  <div className='img'>
+                    <span className='discount'>New</span>
+                    <img src={`${process.env.REACT_APP_API_ENDPOINT}${productItems.imagePath} `} alt='' />
+                  </div>
+                  <div className='product-details'>
+                    <Link to={`/product/${productItems.id}`}><h3 className="name-product">{productItems.name}</h3></Link>
+                    <div className='rate'>
+                      {productItems.rate == null ? <span className="rated">Chưa có đánh giá</span> :
+                        (
+                          <>
+                            <Rating
+                              className='rating-reviews-detail'
+                              emptySymbol="fa-regular fa-star"
+                              fullSymbol="fa-solid fa-star"
+                              readonly
+                              initialRating={productItems.rate}
+                            />
+                          </>
+                        )
+                      }
+                    </div>
+                    <div className='price'>
+                      <h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)}</h4>
+                      {/* step : 3  
+                         if hami le button ma click garryo bahne 
+                        */}
+                      {productItems.amountInStock > 0 ?
+                        (<>
+                          <button onClick={() => dispatch(addToCart(productItems.id, 1))}>
+                            <i className='fa fa-plus'></i>
+                          </button>
+                        </>)
+                        :
+                        (<>
+                          <button onClick={() => toast.error("Sản phẩm đã hết hàng")}>
+                            <i className='fa fa-plus'></i>
+                          </button>
+                        </>)}
+                    </div>
+                  </div>
                 </div>
-                <div className='price'>
-                  <h4>{Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productItems.price)}</h4>
-                  {/* step : 3  
-                       if hami le button ma click garryo bahne 
-                      */}
-                  {productItems.amountInStock > 0 ?
-                    (<>
-                      <button onClick={() => dispatch(addToCart(productItems.id, 1))}>
-                        <i className='fa fa-plus'></i>
-                      </button>
-                    </>)
-                    :
-                    (<>
-                      <button onClick={() => toast.error("Sản phẩm đã hết hàng")}>
-                        <i className='fa fa-plus'></i>
-                      </button>
-                    </>)}
-                </div>
               </div>
-            </div>
-          </div>
-        )
-      })}
+            )
+          })}
+        </>
+      )}
     </>
+
+
   )
 }
 

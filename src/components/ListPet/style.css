@@ -19,6 +19,10 @@
   .shop .product:hover {
     box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
   }
-  
+  .shop .loading-home{
+    margin:auto;
+    margin-top: 15%;
+    margin-left:620px ;
+}
   
   

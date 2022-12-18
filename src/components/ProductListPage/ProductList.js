@@ -58,7 +58,7 @@ export const ProductList = ({ productList, name }) => {
 								/>
 							</div>
 							<div className='product-like'>
-								{productItems.favourite ? <BsHeartFill onClick={()=>handleAddWishList(productItems.id)} /> :<BsHeart onClick={()=>handleAddWishList(productItems.id)}/> }
+								{productItems.favourite ? <BsHeartFill style={{ fontSize: "30px", color: "#e94560", cursor: "pointer" }} onClick={()=>handleAddWishList(productItems.id)} /> :<BsHeart style={{ fontSize: "30px", color: "#e94560", cursor: "pointer" }} onClick={()=>handleAddWishList(productItems.id)}/> }
 							</div>
 							<div className="product-details">
 								<h3 className="name-product" onClick={() => navigate(`/product/${productItems.id}`)}>{productItems.name}</h3>

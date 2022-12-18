@@ -165,6 +165,7 @@
 }
 .box-share{
     margin-left: 10px;
+    display: flex;
 }
 
 .box-like{
@@ -248,4 +249,9 @@
 .image-gallery-slide .image-gallery-image{
     width: 350px!important; 
     object-fit:cover !important;
+}
+.loading-details{
+    margin:auto;
+    margin-top: 15%;
+    margin-bottom: 5%;
 }

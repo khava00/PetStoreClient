@@ -19,3 +19,8 @@
 .name-product:hover{
   color: #e94560;
 }
+
+.product-like{
+  margin-top: 4%;
+  margin-right: 2%;
+}
