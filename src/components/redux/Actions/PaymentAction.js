@@ -12,13 +12,13 @@ export const createPayment = (amount, paymentMethod, orderTrackingNumber, isPlac
       console.log(res)
       if (isPlaceOrder) {
         setTimeout(() => {
-          window.open(res.data, '_blank').focus();
+          window.open(paymentMethod === "Momo" ? res.data.payUrl : res.data, '_blank').focus();
           dispatch({ type: PAYMENT_SUCCESS, payload: res });
           localStorage.removeItem("cartItems");
           window.location.href = "/";
         }, 5000)
       } else {
-        window.open(res.data, '_blank').focus();
+        window.open(paymentMethod === "Momo" ? res.data.payUrl : res.data, '_blank').focus();
         dispatch({ type: PAYMENT_SUCCESS, payload: res });
       }
       
