@@ -1,4 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow:
+Allow: /
 Sitemap: https://petstorencttb.vercel.app/sitemap.xml
