@@ -154,7 +154,7 @@ const Search = () => {
                         color="secondary"
                         src={
                           user?.avatarImg?.substring(0).search('https://robohash.org/') === 0
-                          || user?.avatarImg?.substring(0).search('https://pet-store-api.azurewebsites.net/') === 0
+                          || user?.avatarImg?.substring(0).search('https://pet-store-api.onrender.com/') === 0
                             ? user.avatarImg
                             : `${process.env.REACT_APP_API_ENDPOINT}${user.avatarImg}`
                         }

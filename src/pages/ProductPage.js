@@ -4,11 +4,12 @@ import Accordion from "../components/Accordion/Accordion";
 import { ProductList } from "../components/ProductListPage/ProductList";
 import { useParams } from "react-router-dom";
 import {
-  listProductPage, listProductSuggest,
+  listProductPage,
+  listProductSuggest,
 } from "./../components/redux/Actions/ProductActions";
 import { Pagination } from "@nextui-org/react";
-import { FaThLarge } from 'react-icons/fa';
-import { GoThreeBars } from 'react-icons/go';
+import { FaThLarge } from "react-icons/fa";
+import { GoThreeBars } from "react-icons/go";
 import { Loading } from "@nextui-org/react";
 
 export const ProductPage = () => {
@@ -17,17 +18,46 @@ export const ProductPage = () => {
   const searchList = useSelector((state) => state.productListSuggest);
   const { name } = useSelector((state) => state.currentNameList);
   const dispatch = useDispatch();
-  const { loading } = productList
-  const{loadingListSuggest}= searchList
+  const { loading } = productList;
+  const { loadingListSuggest } = searchList;
   const { categoryId, breedId, keyword } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
-  const page_size = 9;
+  const [currentList, setCurrentList] = useState({});
+  const [currentLoading, setCurrentLoading] = useState(true);
+  const pageSize = 9;
   useEffect(() => {
-    if (keyword) dispatch(listProductSuggest(keyword, pageNumber, page_size))
-    else if (breedId) dispatch(listProductPage(breedId, categoryId, pageNumber, page_size))
-    else if (categoryId) dispatch(listProductPage(0, categoryId, pageNumber, page_size))
-    else dispatch(listProductPage(0, 0, pageNumber, page_size))
-  }, [dispatch, categoryId, breedId, pageNumber, keyword]);
+    // if (keyword) dispatch(listProductSuggest(keyword, pageNumber, pageSize))
+    // else
+    if (
+      keyword === undefined &&
+      categoryId === undefined &&
+      breedId === undefined
+    ) {
+      dispatch(listProductPage(0, 0, pageNumber, pageSize));
+    } else if (
+      isNaN(keyword) &&
+      keyword !== undefined &&
+      categoryId === undefined &&
+      breedId === undefined
+    ) {
+      dispatch(listProductSuggest(keyword, pageNumber, pageSize));
+      setCurrentLoading(true);
+    } else if (!isNaN(keyword) && keyword !== undefined)
+      dispatch(listProductPage(0, keyword, pageNumber, pageSize));
+    else if (breedId !== undefined)
+      dispatch(listProductPage(breedId, categoryId, pageNumber, pageSize));
+  }, [dispatch, breedId, categoryId, pageNumber, keyword]);
+
+  useEffect(() => {
+    if (!loadingListSuggest && currentLoading) {
+      setCurrentList(searchList);
+      setCurrentLoading(false);
+    }
+  }, [loadingListSuggest, currentLoading]);
+
+  useEffect(() => {
+    setPageNumber(1)
+  }, [keyword, categoryId])
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index) => {
     setToggleState(index);
@@ -44,7 +74,13 @@ export const ProductPage = () => {
           </ul>
         </div>
         <div className="title-page">
-          <h1 className="title-name">{isNaN(keyword) && !name ? "Kết quả tìm kiếm: " + keyword : !name ? "Tất cả" : name}</h1>
+          <h1 className="title-name">
+            {isNaN(keyword) && categoryId === undefined && keyword !== undefined
+              ? "Kết quả tìm kiếm: " + keyword
+              : !name
+              ? "Tất cả"
+              : name}
+          </h1>
           <div className="view-type">
             {/* <span>Chế độ hiển thị: </span>
             <div className="view-control">
@@ -52,22 +88,54 @@ export const ProductPage = () => {
               <a onClick={() => toggleTab(2)}><GoThreeBars /></a>
             </div> */}
           </div>
-          <div class={toggleState === 2 ? "product-list-list" : "product-list"} >
-            {(loading === undefined&&loadingListSuggest===undefined) || (loading === true&&loadingListSuggest==true) ? (
-              <div className="loading-product-list container"><Loading /></div>
-            ) : (<>
-              {keyword && searchList.products?.content.length === 0 ? <span className="search-result">Không có kết quả</span> :
-                <ProductList productList={keyword ? searchList.products?.content : productList?.products?.content} />
-              }
-            </>)
-            }
+          <div class={toggleState === 2 ? "product-list-list" : "product-list"}>
+            {loading === false || (currentLoading !== false && loadingListSuggest === false)? (
+              <>
+                {isNaN(keyword) &&
+                keyword !== undefined &&
+                currentList.products?.content.length === 0 ? (
+                  <span className="search-result">Không có kết quả</span>
+                ) : (
+                  <ProductList
+                    productList={
+                      isNaN(keyword) && keyword !== undefined
+                        ? currentList.products?.content
+                        : productList.products?.content
+                    }
+                  />
+                )}
+              </>
+            ) : (
+              <div className="loading-product-list container">
+                <Loading />
+              </div>
+            )}
           </div>
         </div>
       </div>
       <br />
       <div className="pagination">
-        {keyword && searchList.products?.content.length === 0 ? <></> : keyword ? <Pagination shadow animated={false} total={searchList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} /> :
-          <Pagination shadow animated={false} total={productList.products?.pageInfo?.totalPage} onChange={(e) => setPageNumber(e)} initialPage={1} />}
+        {isNaN(keyword) &&
+        keyword !== undefined &&
+        currentList.products?.content.length === 0 ? (
+          <></>
+        ) : isNaN(keyword) && keyword !== undefined ? (
+          <Pagination
+            shadow
+            animated={false}
+            total={currentList.products?.pageInfo?.totalPage}
+            onChange={(e) => setPageNumber(e)}
+            initialPage={pageNumber}
+          />
+        ) : (
+          <Pagination
+            shadow
+            animated={false}
+            total={productList.products?.pageInfo?.totalPage}
+            onChange={(e) => setPageNumber(e)}
+            initialPage={pageNumber}
+          />
+        )}
       </div>
     </>
   );

@@ -16,9 +16,8 @@ const Autocomplete = (props) => {
 
   useEffect(() => {
     if (userInput !== "") {
-      dispatch(listProductSuggest(userInput, 0, 4));
+      dispatch(listProductSuggest(userInput, 1, 9));
     }
-
   }, [userInput, dispatch]);
 
   const onChange = (e) => {
@@ -34,7 +33,6 @@ const Autocomplete = (props) => {
     setFilteredSuggestions([]);
     setShowSuggestions(false);
     setUserInput(e.currentTarget.innerText);
-
   };
 
   const onKeyDown = (e) => {
@@ -42,8 +40,7 @@ const Autocomplete = (props) => {
       e.preventDefault();
       setActiveSuggestion(0);
       setShowSuggestions(false);
-      setUserInput(filteredSuggestions[activeSuggestion]);
-      if (userInput!==""){
+      if (userInput!=="" && e.keyCode === 13){
         navigate(`/pages/${userInput}`)
       }else {
         toast.error("Bạn chưa nhập từ khóa tìm kiếm")
@@ -103,6 +100,7 @@ const Autocomplete = (props) => {
   return (
     <form class="search-form">
       <input
+        id="user-input"
         type="text"
         onChange={onChange}
         onKeyDown={onKeyDown}
