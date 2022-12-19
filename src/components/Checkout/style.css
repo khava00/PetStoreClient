@@ -126,7 +126,10 @@
 .address-autocomplete div{
 display: block !important;
 }
-
+.loading-checkout{
+  margin: auto;
+  margin-left: 50%;
+}
 @media (max-width: 800px) {
   .box-checkout-form {
     flex-direction: column-reverse;

@@ -12,7 +12,7 @@ import {
   getDistrictBilling,
   getProvinceBilling,
 } from "../redux/Actions/AddressAction";
-import AutoComplete from "react-autocomplete";
+import { Loading } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 
 const CheckoutForm = () => {
@@ -29,6 +29,7 @@ const CheckoutForm = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [orderItems, setOrderItems] = useState([]);
   const { loading, ordered, error } = useSelector((state) => state.checkout);
+  const {loadingPayment} = useSelector((state)=>state.payment)
   let total = 0;
   let orderItemArrays = [];
   const dispatch = useDispatch();
@@ -114,7 +115,6 @@ const CheckoutForm = () => {
       ));
     }
     else{ 
-      console.log(helperAddress.text)
       toast.error("Vui lòng điền thông tin chính xác")
     } 
   };
@@ -272,12 +272,13 @@ const CheckoutForm = () => {
                   </Row>
                 </Container>
               </div>
+              {loading===true||loadingPayment===true?<div className="loading-checkout container"><Loading/></div>:
               <input
                 className="btn-checkout-form"
                 type="button"
                 value="Continue to checkout"
                 onClick={placeOrder}
-              />
+              />}
             </form>
           </div>
         </div>
