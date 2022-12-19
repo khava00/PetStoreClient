@@ -44,7 +44,7 @@ export const ProductPage = () => {
           </ul>
         </div>
         <div className="title-page">
-          <h1 className="title-name">{!name ? "Tất cả" : name}</h1>
+          <h1 className="title-name">{isNaN(keyword) && !name ? "Kết quả tìm kiếm: " + keyword : !name ? "Tất cả" : name}</h1>
           <div className="view-type">
             {/* <span>Chế độ hiển thị: </span>
             <div className="view-control">
@@ -53,7 +53,7 @@ export const ProductPage = () => {
             </div> */}
           </div>
           <div class={toggleState === 2 ? "product-list-list" : "product-list"} >
-            {((loading === undefined&&loadingListSuggest===undefined) || (loading === true&&loadingListSuggest==true)) ? (
+            {(loading === undefined&&loadingListSuggest===undefined) || (loading === true&&loadingListSuggest==true) ? (
               <div className="loading-product-list container"><Loading /></div>
             ) : (<>
               {keyword && searchList.products?.content.length === 0 ? <span className="search-result">Không có kết quả</span> :

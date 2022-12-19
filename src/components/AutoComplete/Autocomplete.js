@@ -39,16 +39,15 @@ const Autocomplete = (props) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
+      e.preventDefault();
       setActiveSuggestion(0);
       setShowSuggestions(false);
       setUserInput(filteredSuggestions[activeSuggestion]);
       if (userInput!==""){
-        navigate(`/pages/${userInput}/0/0`)
+        navigate(`/pages/${userInput}`)
       }else {
         toast.error("Bạn chưa nhập từ khóa tìm kiếm")
-        
       }
-        
     } else if (e.keyCode === 38) {
       if (activeSuggestion === 0) {
         return;
