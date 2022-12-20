@@ -89,7 +89,7 @@ export const ProductPage = () => {
             </div> */}
           </div>
           <div class={toggleState === 2 ? "product-list-list" : "product-list"}>
-            {loading === false || (currentLoading !== false && loadingListSuggest === false)? (
+            {loading === false || currentLoading !== false ? (
               <>
                 {isNaN(keyword) &&
                 keyword !== undefined &&
