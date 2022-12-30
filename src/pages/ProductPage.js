@@ -89,7 +89,7 @@ export const ProductPage = () => {
             </div> */}
           </div>
           <div class={toggleState === 2 ? "product-list-list" : "product-list"}>
-            {loading === false || currentLoading !== false ? (
+            {(loading === false && currentLoading === false) || (loading === undefined && currentLoading === false) ? (
               <>
                 {isNaN(keyword) &&
                 keyword !== undefined &&
@@ -125,6 +125,7 @@ export const ProductPage = () => {
             animated={false}
             total={currentList.products?.pageInfo?.totalPage}
             onChange={(e) => setPageNumber(e)}
+            page={pageNumber}
             initialPage={pageNumber}
           />
         ) : (
@@ -133,6 +134,7 @@ export const ProductPage = () => {
             animated={false}
             total={productList.products?.pageInfo?.totalPage}
             onChange={(e) => setPageNumber(e)}
+            page={pageNumber}
             initialPage={pageNumber}
           />
         )}
